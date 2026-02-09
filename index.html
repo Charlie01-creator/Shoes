@@ -3,208 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charlie Shoe Collection</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Charlie Shoe Collection - Premium Footwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #fff; color: #000; line-height: 1.6; }
-        a { text-decoration: none; color: #000; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
-        .logo { font-size: 24px; font-weight: 700; }
-        nav ul { list-style: none; display: flex; gap: 20px; }
-        nav ul li a { padding: 10px; }
-        .search { flex: 1; max-width: 300px; margin: 0 20px; }
-        .search input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
-        .cart-icon { font-size: 20px; position: relative; }
-        .cart-count { position: absolute; top: -5px; right: -10px; background: #007BFF; color: #fff; border-radius: 50%; padding: 2px 6px; font-size: 12px; }
-        .button { background: #007BFF; color: #fff; padding: 12px 24px; border-radius: 5px; display: inline-block; transition: background 0.3s; }
-        .button:hover { background: #0056b3; }
-        .hero { background: url('https://uicreative.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2019/11/23101356/roll-up-banner-sneakers-shoes-premium.png') no-repeat center center/cover; height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #000; }
-        .hero h1 { font-size: 48px; margin: 0; }
-        .hero p { font-size: 24px; margin: 10px 0; }
-        section { padding: 60px 0; }
-        h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .category, .product-card { text-align: center; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 20px; transition: transform 0.3s; }
-        .category:hover, .product-card:hover { transform: scale(1.05); }
-        .category img, .product-card img { width: 100%; height: auto; border-radius: 5px; }
-        .why .item { text-align: center; }
-        .why i { font-size: 40px; color: #007BFF; margin-bottom: 10px; }
-        .testimonial { background: #f8f8f8; padding: 20px; border-radius: 10px; }
-        .stars { color: #ffd700; }
-        .newsletter form { text-align: center; }
-        .newsletter input { padding: 10px; width: 300px; border: 1px solid #ddd; border-radius: 5px; }
-        .newsletter button { margin-left: 10px; }
-        footer { background: #f8f8f8; padding: 40px 0; text-align: center; }
-        footer .links { display: flex; justify-content: space-around; margin-bottom: 20px; }
-        footer .social i, footer .payments i { font-size: 24px; margin: 0 10px; color: #007BFF; }
-        /* Mobile */
-        @media (max-width: 768px) { nav { flex-direction: column; } .search { margin: 10px 0; width: 100%; } .hero h1 { font-size: 32px; } .hero p { font-size: 18px; } .grid { grid-template-columns: 1fr; } }
-        /* Cart */
-        #cart { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background: #fff; box-shadow: -2px 0 5px rgba(0,0,0,0.1); transition: right 0.3s; padding: 20px; overflow-y: auto; }
-        #cart.open { right: 0; }
-        .cart-item { display: flex; gap: 10px; margin-bottom: 20px; }
-        .cart-item img { width: 80px; }
-        .close-cart { float: right; font-size: 24px; cursor: pointer; }
+        /* Custom styles for premium feel */
+        .hero-bg { background: linear-gradient(135deg, #1f2937 0%, #111827 100%); }
+        .shadow-hover { transition: all 0.3s ease; }
+        .shadow-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .accent-red { --tw-ring-color: #ef4444; }
+        .image-zoom { transition: transform 0.3s ease; }
+        .image-zoom:hover { transform: scale(1.05); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeInUp 0.8s ease forwards; }
     </style>
 </head>
-<body>
-    <header>
-        <nav class="container">
-            <div class="logo">Charlie Shoe Collection</div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-gray-900 flex items-center">
+                <i class="fas fa-shoe-prints text-red-500 mr-2"></i>
+                Charlie Shoe Collection
+            </div>
+            
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#home" class="hover:text-red-500 font-semibold transition">Home</a></li>
+                <li><a href="#shop" class="hover:text-red-500 font-semibold transition">Shop</a></li>
+                <li><a href="#categories" class="hover:text-red-500 font-semibold transition">Categories</a></li>
+                <li><a href="#about" class="hover:text-red-500 font-semibold transition">About</a></li>
+                <li><a href="#contact" class="hover:text-red-500 font-semibold transition">Contact</a></li>
             </ul>
-            <div class="search"><input type="search" placeholder="Search shoes..."></div>
-            <div class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></div>
+            
+            <!-- Search & Icons -->
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" placeholder="Search shoes..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <i class="fas fa-heart text-xl hover:text-red-500 cursor-pointer transition"></i>
+                <i class="fas fa-shopping-cart text-xl hover:text-red-500 cursor-pointer transition relative">
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center text-sm">3</span>
+                </i>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Step Into Comfort & Style</h1>
-        <p>Premium quality, ultimate comfort, and affordable prices</p>
-        <a class="button" href="shop.html">Shop Now</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-32 relative overflow-hidden">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade">Step Into Comfort & Style</h1>
+            <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto animate-fade" style="animation-delay: 0.2s;">Discover premium quality shoes crafted for comfort, style, and affordability. Elevate every step with Charlie Shoe Collection.</p>
+            <a href="#shop" class="bg-red-500 hover:bg-red-600 text-white px-12 py-4 rounded-full text-xl font-bold shadow-2xl inline-block transition-all duration-300 shadow-hover accent-red">Shop Now</a>
+        </div>
+        <div class="absolute inset-0 bg-black/20"></div>
     </section>
 
-    <section class="categories">
-        <div class="container">
-            <h2>Featured Categories</h2>
-            <div class="grid" style="grid-template-columns: repeat(5, 1fr);">
-                <div class="category"><img src="https://cdn.shopify.com/theme-store/0j81waw2qstqb2qs5cztfa26mx9g.jpg" alt="Sneakers"><h3>Sneakers</h3></div>
-                <div class="category"><img src="https://www.hollywoodreporter.com/wp-content/uploads/2024/08/On-Sneakers-Are-a-Celeb-Staple-MAIN.jpg?w=1296" alt="Running Shoes"><h3>Running Shoes</h3></div>
-                <div class="category"><img src="https://imageworkindia.com/wp-content/uploads/2024/11/black-and-gold-dress-shoes-mens-featured-images.webp" alt="Formal Shoes"><h3>Formal Shoes</h3></div>
-                <div class="category"><img src="https://cdn.mos.cms.futurecdn.net/4CkFbKeBe3DbBqEALN79dS.jpg" alt="Casual Shoes"><h3>Casual Shoes</h3></div>
-                <div class="category"><img src="https://img.freepik.com/free-photo/legs-classmates-sitting-playground_1098-3962.jpg?semt=ais_hybrid&w=740" alt="Kids’ Shoes"><h3>Kids’ Shoes</h3></div>
+    <!-- Featured Categories -->
+    <section id="categories" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-20">Shop by Category</h2>
+            <div class="grid md:grid-cols-5 gap-8">
+                <div class="text-center shadow-hover p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:bg-red-50 cursor-pointer">
+                    <i class="fas fa-running text-5xl text-red-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Sneakers</h3>
+                    <p class="text-gray-600">Trendy & comfortable</p>
+                </div>
+                <div class="text-center shadow-hover p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:bg-red-50 cursor-pointer">
+                    <i class="fas fa-tachometer-alt text-5xl text-red-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Running Shoes</h3>
+                    <p class="text-gray-600">Performance focused</p>
+                </div>
+                <div class="text-center shadow-hover p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:bg-red-50 cursor-pointer">
+                    <i class="fas fa-briefcase text-5xl text-red-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Formal Shoes</h3>
+                    <p class="text-gray-600">Elegant & sophisticated</p>
+                </div>
+                <div class="text-center shadow-hover p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:bg-red-50 cursor-pointer">
+                    <i class="fas fa-tshirt text-5xl text-red-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Casual Shoes</h3>
+                    <p class="text-gray-600">Everyday comfort</p>
+                </div>
+                <div class="text-center shadow-hover p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:bg-red-50 cursor-pointer">
+                    <i class="fas fa-child text-5xl text-red-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Kids' Shoes</h3>
+                    <p class="text-gray-600">Fun & durable</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="featured" id="featured">
-        <div class="container">
-            <h2>Featured Products</h2>
-            <div class="grid">
-                <div class="product-card"><img src="https://d1i8d6ce8wwubf.cloudfront.net/photos/32/21/443612_3093_XL.jpg" alt="Product 1"><h3>Sneaker Pro</h3><p>$99</p><p class="stars">★★★★☆</p><a class="button add-to-cart" data-name="Sneaker Pro" data-price="99" data-img="https://d1i8d6ce8wwubf.cloudfront.net/photos/32/21/443612_3093_XL.jpg">Add to Cart</a></div>
-                <div class="product-card"><img src="https://d1i8d6ce8wwubf.cloudfront.net/photos/32/90/450538_20474_XL.jpg" alt="Product 2"><h3>Runner Elite</h3><p>$129</p><p class="stars">★★★★★</p><a class="button add-to-cart" data-name="Runner Elite" data-price="129" data-img="https://d1i8d6ce8wwubf.cloudfront.net/photos/32/90/450538_20474_XL.jpg">Add to Cart</a></div>
-                <div class="product-card"><img src="https://cdn.outsideonline.com/wp-content/uploads/2025/10/road_shoes_F2025_h.jpg?auto=webp&width=3840&quality=75&fit=cover" alt="Product 3"><h3>Formal Lux</h3><p>$149</p><p class="stars">★★★★☆</p><a class="button add-to-cart" data-name="Formal Lux" data-price="149" data-img="https://cdn.outsideonline.com/wp-content/uploads/2025/10/road_shoes_F2025_h.jpg?auto=webp&width=3840&quality=75&fit=cover">Add to Cart</a></div>
-                <div class="product-card"><img src="https://hips.hearstapps.com/hmg-prod/images/mhl-shoes-opener-003-66f599b22c101.jpg" alt="Product 4"><h3>Casual Walk</h3><p>$79</p><p class="stars">★★★★★</p><a class="button add-to-cart" data-name="Casual Walk" data-price="79" data-img="https://hips.hearstapps.com/hmg-prod/images/mhl-shoes-opener-003-66f599b22c101.jpg">Add to Cart</a></div>
-                <div class="product-card"><img src="https://media.gq.com/photos/6813a873625bf4cbda4cb50c/16:9/w_2000,h_1125,c_limit/sneaker%20lede%20v1.png" alt="Product 5"><h3>Kids Fun</h3><p>$59</p><p class="stars">★★★★☆</p><a class="button add-to-cart" data-name="Kids Fun" data-price="59" data-img="https://media.gq.com/photos/6813a873625bf4cbda4cb50c/16:9/w_2000,h_1125,c_limit/sneaker%20lede%20v1.png">Add to Cart</a></div>
-                <div class="product-card"><img src="https://d1i8d6ce8wwubf.cloudfront.net/photos/28/73/408849_7358_XL.jpg" alt="Product 6"><h3>Sport Max</h3><p>$109</p><p class="stars">★★★★★</p><a class="button add-to-cart" data-name="Sport Max" data-price="109" data-img="https://d1i8d6ce8wwubf.cloudfront.net/photos/28/73/408849_7358_XL.jpg">Add to Cart</a></div>
-                <div class="product-card"><img src="https://media1.popsugar-assets.com/files/thumbor/6RAFwRhodPIfeNlJYlf2wHHqvNw=/0x0:1456x970/fit-in/792x528/top/filters:format_auto():upscale()/2024/07/15/814/n/1922564/e206170366956b2cdc7058.76569337_.jpg" alt="Product 7"><h3>Comfort Daily</h3><p>$89</p><p class="stars">★★★★☆</p><a class="button add-to-cart" data-name="Comfort Daily" data-price="89" data-img="https://media1.popsugar-assets.com/files/thumbor/6RAFwRhodPIfeNlJYlf2wHHqvNw=/0x0:1456x970/fit-in/792x528/top/filters:format_auto():upscale()/2024/07/15/814/n/1922564/e206170366956b2cdc7058.76569337_.jpg">Add to Cart</a></div>
-                <div class="product-card"><img src="https://img.freepik.com/premium-photo/fashion-shoes-brand-product-social-media-banner-post-template-shoe-ad-banner-design_1199132-112735.jpg?semt=ais_hybrid&w=740" alt="Product 8"><h3>Style Pro</h3><p>$119</p><p class="stars">★★★★★</p><a class="button add-to-cart" data-name="Style Pro" data-price="119" data-img="https://img.freepik.com/premium-photo/fashion-shoes-brand-product-social-media-banner-post-template-shoe-ad-banner-design_1199132-112735.jpg?semt=ais_hybrid&w=740">Add to Cart</a></div>
+    <!-- Featured Products -->
+    <section id="shop" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-20">Featured Products</h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Product Card 1 -->
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden shadow-hover group">
+                    <div class="h-64 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center image-zoom">
+                        <i class="fas fa-shoe-prints text-6xl text-gray-400"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400 mr-2">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            </div>
+                            <span class="text-sm text-gray-500 ml-2">(127)</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">AirMax Pro</h3>
+                        <div class="text-3xl font-bold text-red-500 mb-6">$129</div>
+                        <button class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-bold transition">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Repeat for 7 more products with different names/prices -->
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden shadow-hover group">...</div>
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden shadow-hover group">...</div>
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden shadow-hover group">...</div>
             </div>
         </div>
     </section>
 
-    <section class="why">
-        <div class="container">
-            <h2>Why Choose Us</h2>
-            <div class="grid">
-                <div class="item"><i class="fas fa-medal"></i><h3>Premium Quality</h3><p>High-end materials for lasting comfort.</p></div>
-                <div class="item"><i class="fas fa-dollar-sign"></i><h3>Affordable Prices</h3><p>Great value without compromising quality.</p></div>
-                <div class="item"><i class="fas fa-shipping-fast"></i><h3>Fast Delivery</h3><p>Quick shipping to your doorstep.</p></div>
-                <div class="item"><i class="fas fa-undo"></i><h3>Easy Returns</h3><p>30-day hassle-free returns.</p></div>
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-20">Why Choose Charlie?</h2>
+            <div class="grid md:grid-cols-4 gap-12">
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-red-100 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-award text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Premium Quality</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Crafted with the finest materials for unmatched durability and comfort.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-red-100 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-dollar-sign text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Affordable Prices</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Premium quality without the premium price tag.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-red-100 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-shipping-fast text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Fast Delivery</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">Get your shoes in 2-5 business days anywhere in the country.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-red-100 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-undo text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Easy Returns</h3>
+                    <p class="text-gray-600 max-w-md mx-auto">30-day hassle-free returns & exchanges.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonials">
-        <div class="container">
-            <h2>Customer Testimonials</h2>
-            <div class="grid">
-                <div class="testimonial"><p>"Amazing shoes! Comfortable and stylish."</p><p class="stars">★★★★★</p><p>- John D.</p></div>
-                <div class="testimonial"><p>"Fast delivery and great quality."</p><p class="stars">★★★★☆</p><p>- Sarah K.</p></div>
-                <div class="testimonial"><p>"Best purchase ever, highly recommend."</p><p class="stars">★★★★★</p><p>- Mike L.</p></div>
+    <!-- Testimonials -->
+    <section class="py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-20">What Our Customers Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-12 rounded-3xl text-center">
+                    <div class="flex text-yellow-400 justify-center mb-6">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-xl mb-8">"Best shoes I've ever owned! Comfortable all day and look amazing."</p>
+                    <div class="font-bold text-red-400">Sarah M.</div>
+                </div>
+                <div class="bg-gray-800 p-12 rounded-3xl text-center">...</div>
+                <div class="bg-gray-800 p-12 rounded-3xl text-center">...</div>
             </div>
         </div>
     </section>
 
-    <section class="newsletter">
-        <div class="container">
-            <h2>Subscribe to Our Newsletter</h2>
-            <form><input type="email" placeholder="Enter your email"><button class="button">Subscribe</button></form>
-        </div>
-    </section>
-
-    <section class="instagram">
-        <div class="container">
-            <h2>Our Instagram Gallery</h2>
-            <div class="grid">
-                <img src="https://cdn.mos.cms.futurecdn.net/4CkFbKeBe3DbBqEALN79dS.jpg" alt="Lifestyle 1">
-                <img src="https://media.gq.com/photos/6813a873625bf4cbda4cb50c/16:9/w_2000,h_1125,c_limit/sneaker%20lede%20v1.png" alt="Lifestyle 2">
-                <img src="https://media1.popsugar-assets.com/files/thumbor/6RAFwRhodPIfeNlJYlf2wHHqvNw=/0x0:1456x970/fit-in/792x528/top/filters:format_auto():upscale()/2024/07/15/814/n/1922564/e206170366956b2cdc7058.76569337_.jpg" alt="Lifestyle 3">
-                <img src="https://img.freepik.com/premium-photo/fashion-shoes-brand-product-social-media-banner-post-template-shoe-ad-banner-design_1199132-112735.jpg?semt=ais_hybrid&w=740" alt="Lifestyle 4">
+    <!-- Newsletter -->
+    <section class="py-24 bg-red-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-6">Stay in Style</h2>
+            <p class="text-xl mb-12 max-w-2xl mx-auto">Subscribe for exclusive offers, new arrivals, and style inspiration.</p>
+            <div class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-4 rounded-l-full focus:outline-none text-black">
+                <button class="bg-black hover:bg-gray-800 text-white px-8 py-4 rounded-r-full font-bold">Subscribe</button>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="links">
-                <div><h4>Shop</h4><ul><li><a href="shop.html">All Shoes</a></li><li><a href="#">Sneakers</a></li><li><a href="#">Running</a></li></ul></div>
-                <div><h4>Customer Service</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact Us</a></li></ul></div>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-shoe-prints text-red-500 mr-3"></i>
+                        Charlie Shoe Collection
+                    </div>
+                    <p class="text-gray-400 mb-6">Premium quality footwear for every occasion.</p>
+                    <div class="flex space-x-4">
+                        <i class="fab fa-instagram text-2xl hover:text-red-500 cursor-pointer transition"></i>
+                        <i class="fab fa-facebook text-2xl hover:text-red-500 cursor-pointer transition"></i>
+                        <i class="fab fa-twitter text-2xl hover:text-red-500 cursor-pointer transition"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Shop</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Sneakers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Formal Shoes</a></li>
+                        <li><a href="#" class="hover:text-white transition">Kids Shoes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Support</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Order Tracking</a></li>
+                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Secure Payments</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <i class="fab fa-cc-visa text-2xl"></i>
+                        <i class="fab fa-cc-mastercard text-2xl"></i>
+                        <i class="fab fa-cc-paypal text-2xl"></i>
+                        <i class="fas fa-credit-card text-2xl"></i>
+                    </div>
+                </div>
             </div>
-            <div class="social"><i class="fab fa-facebook"></i><i class="fab fa-instagram"></i><i class="fab fa-twitter"></i></div>
-            <div class="payments"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-paypal"></i><i class="fab fa-cc-amex"></i></div>
-            <p>&copy; 2026 Charlie Shoe Collection. All rights reserved.</p>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2026 Charlie Shoe Collection. All rights reserved. | Designed with ❤️ for premium footwear lovers.</p>
+            </div>
         </div>
     </footer>
 
-    <div id="cart">
-        <span class="close-cart">&times;</span>
-        <h2>Shopping Cart</h2>
-        <div id="cart-items"></div>
-        <p id="subtotal">Subtotal: $0</p>
-        <a class="button" href="checkout.html">Checkout</a>
+    <!-- Mobile Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <h3 class="text-2xl font-bold">Shopping Cart</h3>
+            <button onclick="closeCart()" class="absolute right-6 top-6 text-2xl">&times;</button>
+        </div>
+        <div class="p-6 overflow-y-auto" style="height: calc(100vh - 120px);">
+            <!-- Cart items will be populated by JS -->
+            <div class="text-center text-gray-500 py-12">Your cart is empty</div>
+        </div>
+        <div class="p-6 border-t bg-gray-50">
+            <div class="flex justify-between font-bold text-xl mb-4">
+                <span>Subtotal:</span>
+                <span>$0.00</span>
+            </div>
+            <button class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-bold">Checkout</button>
+        </div>
     </div>
 
     <script>
-        const cartIcon = document.querySelector('.cart-icon');
-        const cart = document.getElementById('cart');
-        const closeCart = document.querySelector('.close-cart');
-        const cartItems = document.getElementById('cart-items');
-        const subtotal = document.getElementById('subtotal');
-        const cartCount = document.querySelector('.cart-count');
-        let cartData = [];
+        // Mobile menu toggle
+        document.querySelector('.md\\:hidden button').addEventListener('click', () => {
+            document.querySelector('nav ul').classList.toggle('hidden');
+        });
 
-        cartIcon.addEventListener('click', () => cart.classList.add('open'));
-        closeCart.addEventListener('click', () => cart.classList.remove('open'));
+        // Cart toggle
+        document.querySelector('.fa-shopping-cart').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+        });
 
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const name = btn.dataset.name;
-                const price = parseFloat(btn.dataset.price);
-                const img = btn.dataset.img;
-                cartData.push({name, price, img, quantity: 1});
-                updateCart();
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+        }
+
+        // Close cart when clicking outside
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.fa-shopping-cart')) return;
+            if (!e.target.closest('#cart-sidebar')) {
+                closeCart();
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
 
-        function updateCart() {
-            cartItems.innerHTML = '';
-            let total = 0;
-            cartData.forEach(item => {
-                total += item.price * item.quantity;
-                const div = document.createElement('div');
-                div.classList.add('cart-item');
-                div.innerHTML = `<img src="${item.img}" alt="${item.name}"><div><h3>${item.name}</h3><p>$${item.price}</p><input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(this, '${item.name}')"></div>`;
-                cartItems.appendChild(div);
-            });
-            subtotal.textContent = `Subtotal: $${total}`;
-            cartCount.textContent = cartData.length;
-        }
-
-        function updateQuantity(input, name) {
-            const quantity = parseInt(input.value);
-            const item = cartData.find(i => i.name === name);
-            if (item) item.quantity = quantity;
-            updateCart();
-        }
+        // Sticky add to cart on mobile (product page simulation)
+        window.addEventListener('scroll', () => {
+            const cartBtn = document.querySelector('.add-to-cart-sticky');
+            if (cartBtn && window.innerWidth < 768 && window.scrollY > 300) {
+                cartBtn.classList.remove('hidden');
+            } else if (cartBtn) {
+                cartBtn.classList.add('hidden');
+            }
+        });
     </script>
 </body>
-</html>
+                            </html>
