@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Charlie Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--black:#050505;--white:#f5f5f0;--accent:#c8f53a;--accent2:#00d4ff;--red:#ff2d2d;--gray:#1a1a1a;--gray2:#2a2a2a;--gray3:#555;--text-muted:#888;--font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;--font-cond:'Barlow Condensed',sans-serif;--nav-h:72px;--ease:cubic-bezier(0.25,0.46,0.45,0.94);--ease-spring:cubic-bezier(0.34,1.56,0.64,1)}
+[data-theme="light"]{--black:#f0ede8;--white:#0a0a0a;--gray:#e5e2dd;--gray2:#d8d5d0;--gray3:#aaa;--text-muted:#666}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}img{display:block;width:100%}button{cursor:none;border:none;background:none;font-family:inherit}
+#cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(200,245,58,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .35s var(--ease)}
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:1000;background:rgba(5,5,5,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-logo{font-family:var(--font-display);font-size:28px;letter-spacing:3px;color:var(--white)}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px;list-style:none;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.nav-links a{position:relative;padding-bottom:4px;color:var(--white);opacity:.75;transition:opacity .3s}.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s var(--ease)}.nav-links a:hover{opacity:1}.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .3s;color:var(--white);opacity:.75;position:relative}.nav-icon:hover{background:rgba(255,255,255,.1);opacity:1}
+.cart-badge{position:absolute;top:4px;right:4px;width:16px;height:16px;background:var(--accent);border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--black);font-family:var(--font-cond)}
+.theme-toggle{width:44px;height:24px;background:var(--gray2);border-radius:12px;position:relative;cursor:none}.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--accent);transition:transform .3s var(--ease-spring)}[data-theme="light"] .theme-toggle::after{transform:translateX(20px)}
+.hamburger{display:none;flex-direction:column;gap:5px;width:30px;padding:5px 0}.hamburger span{display:block;height:2px;background:var(--white);transition:transform .3s,opacity .3s}.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mobile-menu{position:fixed;inset:0;background:rgba(5,5,5,.97);backdrop-filter:blur(30px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .5s var(--ease)}#mobile-menu.open{transform:translateX(0)}
+#mobile-menu a{font-family:var(--font-display);font-size:clamp(36px,8vw,64px);letter-spacing:4px;color:var(--white);opacity:0;transform:translateX(40px);transition:opacity .4s,transform .4s,color .3s}
+#mobile-menu.open a{opacity:1;transform:translateX(0)}
+#mobile-menu.open a:nth-child(1){transition-delay:.1s}#mobile-menu.open a:nth-child(2){transition-delay:.15s}#mobile-menu.open a:nth-child(3){transition-delay:.2s}#mobile-menu.open a:nth-child(4){transition-delay:.25s}#mobile-menu.open a:nth-child(5){transition-delay:.3s}#mobile-menu.open a:nth-child(6){transition-delay:.35s}
+#mobile-menu a:hover{color:var(--accent)}
+#form-toast{position:fixed;bottom:30px;right:30px;background:var(--accent);color:var(--black);padding:20px 28px;border-radius:10px;font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:1px;z-index:5000;transform:translateY(100px);opacity:0;transition:transform .5s var(--ease-spring),opacity .4s}
+#form-toast.show{transform:translateY(0);opacity:1}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* PAGE HERO */
+.contact-hero{padding:160px 60px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(200,245,58,.06) 0%,transparent 70%)}
+.contact-hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-left .breadcrumb{display:flex;gap:8px;align-items:center;font-family:var(--font-cond);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:24px}
+.hero-left .breadcrumb a:hover{color:var(--accent)}.hero-left .breadcrumb span{opacity:.4}
+.section-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.contact-hero h1{font-family:var(--font-display);font-size:clamp(64px,8vw,120px);line-height:.9;letter-spacing:-2px;color:var(--white);margin-bottom:24px}
+.contact-hero h1 em{font-style:normal;color:var(--accent)}
+.contact-hero p{font-size:17px;font-weight:300;line-height:1.7;color:var(--text-muted);max-width:420px}
+.quick-contacts{display:flex;flex-direction:column;gap:16px;margin-top:48px}
+.quick-contact{display:flex;align-items:center;gap:16px;padding:20px;background:var(--gray);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:border-color .3s,transform .3s var(--ease-spring)}
+.quick-contact:hover{border-color:var(--accent);transform:translateX(8px)}
+.qc-icon{width:48px;height:48px;border-radius:12px;background:rgba(200,245,58,.1);border:1px solid rgba(200,245,58,.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.qc-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+.qc-value{font-family:var(--font-cond);font-size:16px;font-weight:700;color:var(--white);margin-top:2px}
+.hero-image{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.hero-image-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(5,5,5,.9),transparent);padding:32px}
+.hero-image-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--black);padding:10px 18px;border-radius:6px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+
+/* CONTACT FORM SECTION */
+.contact-main{padding:0 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+
+/* FORM */
+.form-section h2{font-family:var(--font-display);font-size:clamp(40px,4vw,64px);color:var(--white);line-height:.9;letter-spacing:-1px;margin-bottom:8px}
+.form-section h2 em{font-style:normal;color:var(--accent)}
+.form-section .subtitle{font-size:15px;color:var(--text-muted);margin-bottom:40px;line-height:1.6}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)}
+.form-input,.form-textarea,.form-select{background:var(--gray);border:1.5px solid rgba(255,255,255,.1);border-radius:8px;padding:16px 20px;color:var(--white);font-family:var(--font-body);font-size:15px;outline:none;transition:border-color .3s,box-shadow .3s;width:100%}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,245,58,.1)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--gray3)}
+.form-textarea{resize:vertical;min-height:140px;font-family:var(--font-body)}
+.form-select{cursor:none;color:var(--white)}
+.form-select option{background:var(--gray2)}
+.form-checkbox{display:flex;align-items:flex-start;gap:12px;cursor:none}
+.form-checkbox input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;margin-top:2px;cursor:none}
+.form-checkbox label{font-size:13px;color:var(--text-muted);line-height:1.5;cursor:none}
+.form-checkbox a{color:var(--accent)}
+.btn-submit{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--accent);color:var(--black);padding:20px 40px;border-radius:8px;font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;width:100%;transition:transform .3s var(--ease-spring),box-shadow .3s;position:relative;overflow:hidden}
+.btn-submit:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(200,245,58,.35)}
+.btn-submit.loading{pointer-events:none;opacity:.8}
+.char-count{text-align:right;font-size:11px;color:var(--text-muted);margin-top:4px}
+
+/* INFO SECTION */
+.info-section{padding-top:60px}
+.info-section h2{font-family:var(--font-display);font-size:clamp(40px,4vw,64px);color:var(--white);line-height:.9;letter-spacing:-1px;margin-bottom:40px}
+.info-section h2 em{font-style:normal;color:var(--accent)}
+.info-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
+.info-card{padding:24px;background:var(--gray);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:border-color .3s,transform .4s var(--ease-spring)}
+.info-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.info-card-header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.info-card-icon{width:44px;height:44px;border-radius:10px;background:rgba(200,245,58,.1);border:1px solid rgba(200,245,58,.2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.info-card-title{font-family:var(--font-cond);font-size:16px;font-weight:700;letter-spacing:1px;color:var(--white)}
+.info-card p{font-size:14px;color:var(--text-muted);line-height:1.6}
+.info-card .info-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-top:10px;transition:gap .3s}
+.info-card .info-link:hover{gap:10px}
+
+/* SOCIAL LINKS */
+.social-section h3{font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px}
+.social-links{display:flex;flex-direction:column;gap:10px}
+.social-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border:1px solid rgba(255,255,255,.08);border-radius:10px;transition:border-color .3s,background .3s,transform .3s var(--ease-spring)}
+.social-link:hover{border-color:var(--accent);background:rgba(200,245,58,.04);transform:translateX(6px)}
+.social-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.social-name{font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--white)}
+.social-handle{font-size:12px;color:var(--text-muted);margin-left:auto}
+
+/* MAP PLACEHOLDER */
+.map-section{padding:0 60px 80px}
+.map-header{margin-bottom:32px}
+.map-header .section-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.map-header h2{font-family:var(--font-display);font-size:clamp(36px,4vw,56px);color:var(--white);line-height:.9;letter-spacing:-1px}
+.stores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.store-card{background:var(--gray);border-radius:16px;overflow:hidden;transition:transform .4s var(--ease-spring)}
+.store-card:hover{transform:translateY(-6px)}
+.store-img{aspect-ratio:16/9;overflow:hidden}
+.store-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.store-card:hover .store-img img{transform:scale(1.08)}
+.store-body{padding:24px}
+.store-city{font-family:var(--font-display);font-size:28px;letter-spacing:2px;color:var(--white);margin-bottom:8px}
+.store-address{font-size:14px;color:var(--text-muted);line-height:1.5;margin-bottom:16px}
+.store-hours{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.map-placeholder{background:var(--gray);border-radius:16px;height:300px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,.1);margin-top:32px;overflow:hidden;position:relative}
+.map-placeholder::before{content:'📍 CHARLIE COLLECTION — WORLDWIDE LOCATIONS';font-family:var(--font-display);font-size:20px;letter-spacing:3px;color:var(--text-muted);text-align:center}
+.map-dots{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(200,245,58,0.1)'/%3E%3C/svg%3E") repeat}
+
+footer{background:#000;padding:48px 60px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+footer a{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);transition:color .3s}footer a:hover{color:var(--accent)}
+
+@media(max-width:1100px){.contact-hero-inner,.contact-main{grid-template-columns:1fr;gap:40px}.contact-hero{padding:130px 40px 60px}.contact-main{padding:0 40px 80px}.map-section{padding:0 40px 60px}.stores-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.contact-hero{padding:120px 24px 40px}.contact-main{padding:0 24px 60px}.map-section{padding:0 24px 60px}.stores-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<div id="form-toast">✅ Message sent! We'll reply within 24 hours.</div>
+
+<nav id="mobile-menu">
+  <a href="index.html">Home</a><a href="collections.html">Shop</a><a href="product.html">Products</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+</nav>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">CHARLIE<span>.</span></a>
+  <ul class="nav-links"><li><a href="collections.html">Men</a></li><li><a href="collections.html">Women</a></li><li><a href="collections.html">New Arrivals</a></li><li><a href="collections.html">Sale</a></li><li><a href="about.html">About</a></li></ul>
+  <div class="nav-right">
+    <a href="cart.html" class="nav-icon" style="position:relative"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge">0</span></a>
+    <button class="theme-toggle" onclick="toggleTheme()"></button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="contact-hero">
+  <div class="hero-bg"></div>
+  <div class="contact-hero-inner">
+    <div class="hero-left reveal-left">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span style="color:var(--white)">Contact</span></div>
+      <div class="section-label">✦ We're Here For You</div>
+      <h1>Get In <em>Touch</em></h1>
+      <p>Questions about your order? Want to collaborate? Just want to talk sneakers? We're always here — real humans, real fast replies.</p>
+      <div class="quick-contacts">
+        <a href="mailto:hello@charliecollection.com" class="quick-contact">
+          <div class="qc-icon">📧</div><div><div class="qc-label">Email Us</div><div class="qc-value">hello@charliecollection.com</div></div>
+        </a>
+        <a href="https://wa.me/447700900000" class="quick-contact">
+          <div class="qc-icon">💬</div><div><div class="qc-label">WhatsApp</div><div class="qc-value">+44 7700 900 000</div></div>
+        </a>
+        <div class="quick-contact">
+          <div class="qc-icon">⏰</div><div><div class="qc-label">Response Time</div><div class="qc-value">Within 24 hours</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image reveal-right">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=90" alt="Contact Charlie Collection">
+      <div class="hero-image-overlay">
+        <div class="hero-image-tag">⚡ We reply fast</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTACT CONTENT -->
+<div class="contact-main">
+  <!-- FORM -->
+  <div class="form-section reveal-left">
+    <div class="section-label">✦ Send A Message</div>
+    <h2>Let's <em>Talk</em></h2>
+    <p class="subtitle">Fill out the form and our team will get back to you within 24 hours — usually much sooner.</p>
+    <form class="contact-form" onsubmit="submitForm(event)" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name *</label>
+          <input type="text" class="form-input" placeholder="Jordan" required id="first-name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name *</label>
+          <input type="text" class="form-input" placeholder="Mitchell" required id="last-name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <input type="email" class="form-input" placeholder="jordan@email.com" required id="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone (Optional)</label>
+        <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" id="phone">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject *</label>
+        <select class="form-select form-input" required id="subject">
+          <option value="" disabled selected>Select a topic...</option>
+          <option>Order Inquiry</option>
+          <option>Returns & Exchanges</option>
+          <option>Product Question</option>
+          <option>Collaboration / Partnership</option>
+          <option>Press & Media</option>
+          <option>Wholesale Inquiry</option>
+          <option>General Question</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Order Number (if applicable)</label>
+        <input type="text" class="form-input" placeholder="CC-2025-XXXXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message *</label>
+        <textarea class="form-textarea" placeholder="Tell us how we can help..." required id="message" maxlength="500" oninput="updateCount(this)"></textarea>
+        <div class="char-count"><span id="char-count">0</span>/500</div>
+      </div>
+      <div class="form-group">
+        <div class="form-checkbox">
+          <input type="checkbox" id="subscribe">
+          <label for="subscribe">Subscribe me to exclusive drops, new arrivals, and member-only deals. No spam — we promise.</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-checkbox">
+          <input type="checkbox" id="agree" required>
+          <label for="agree">I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>. *</label>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="submit-btn">
+        <span id="btn-text">Send Message</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-section reveal-right">
+    <div class="section-label">✦ Get Answers Fast</div>
+    <h2>How Can We <em>Help?</em></h2>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">📦</div><div class="info-card-title">Order & Shipping</div></div>
+        <p>Track your order, modify delivery, or get help with a missing or delayed shipment. Most orders ship within 1-2 business days.</p>
+        <a href="#" class="info-link">Track Order →</a>
+      </div>
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">↩️</div><div class="info-card-title">Returns & Exchanges</div></div>
+        <p>Not the right fit? We offer free returns and exchanges within 30 days. Items must be unworn and in original packaging.</p>
+        <a href="#" class="info-link">Start Return →</a>
+      </div>
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">👟</div><div class="info-card-title">Size & Fit Guide</div></div>
+        <p>Our shoes run true to size for most styles. Check our comprehensive size guide to find your perfect fit before ordering.</p>
+        <a href="#" class="info-link">Size Guide →</a>
+      </div>
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">🤝</div><div class="info-card-title">Collaborations</div></div>
+        <p>Interested in a partnership, brand collaboration, or wholesale opportunity? We'd love to hear your pitch.</p>
+        <a href="mailto:collab@charliecollection.com" class="info-link">collab@charliecollection.com →</a>
+      </div>
+    </div>
+    <div class="social-section">
+      <h3>Follow & DM Us</h3>
+      <div class="social-links">
+        <a href="#" class="social-link"><div class="social-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">📸</div><div><div class="social-name">Instagram</div></div><span class="social-handle">@charliecollection</span></a>
+        <a href="https://wa.me/447700900000" class="social-link"><div class="social-icon" style="background:#25d366">💬</div><div><div class="social-name">WhatsApp</div></div><span class="social-handle">+44 7700 900 000</span></a>
+        <a href="#" class="social-link"><div class="social-icon" style="background:#000">𝕏</div><div><div class="social-name">Twitter / X</div></div><span class="social-handle">@charliecollect</span></a>
+        <a href="#" class="social-link"><div class="social-icon" style="background:#ff0050">♪</div><div><div class="social-name">TikTok</div></div><span class="social-handle">@charliecollection</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STORE LOCATIONS -->
+<div class="map-section">
+  <div class="map-header reveal">
+    <div class="section-label">✦ Visit Us In Person</div>
+    <h2>Our <span style="color:var(--accent)">Flagship Stores</span></h2>
+  </div>
+  <div class="stores-grid">
+    <div class="store-card reveal">
+      <div class="store-img"><img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=85" alt="London Store"></div>
+      <div class="store-body">
+        <div class="store-city">LONDON</div>
+        <div class="store-address">12 Shoreditch High Street<br>London, E1 6JE, United Kingdom</div>
+        <div class="store-hours">Mon–Sat 10am–8pm · Sun 11am–6pm</div>
+      </div>
+    </div>
+    <div class="store-card reveal" style="transition-delay:.1s">
+      <div class="store-img"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=85" alt="New York Store"></div>
+      <div class="store-body">
+        <div class="store-city">NEW YORK</div>
+        <div class="store-address">245 Canal Street, SoHo<br>New York, NY 10013, USA</div>
+        <div class="store-hours">Mon–Sat 11am–9pm · Sun 12pm–7pm</div>
+      </div>
+    </div>
+    <div class="store-card reveal" style="transition-delay:.2s">
+      <div class="store-img"><img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=85" alt="Tokyo Store"></div>
+      <div class="store-body">
+        <div class="store-city">TOKYO</div>
+        <div class="store-address">4-21-3 Jingumae, Harajuku<br>Shibuya-ku, Tokyo 150-0001, Japan</div>
+        <div class="store-hours">Daily 10am–9pm</div>
+      </div>
+    </div>
+  </div>
+  <div class="map-placeholder reveal" style="margin-top:32px">
+    <div class="map-dots"></div>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:var(--font-display);font-size:32px;letter-spacing:4px;color:var(--white)">CHARLIE<span style="color:var(--accent)">.</span></div>
+  <div style="font-size:13px;color:var(--text-muted)">© 2025 Charlie Collection. All rights reserved.</div>
+  <div style="display:flex;gap:24px"><a href="index.html">Home</a><a href="collections.html">Shop</a><a href="about.html">About</a><a href="cart.html">Cart</a></div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),cursorRing=document.getElementById('cursor-ring');
+let mouseX=0,mouseY=0,ringX=0,ringY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;cursor.style.left=mouseX+'px';cursor.style.top=mouseY+'px'});
+(function tick(){ringX+=(mouseX-ringX)*.12;ringY+=(mouseY-ringY)*.12;cursorRing.style.left=ringX+'px';cursorRing.style.top=ringY+'px';requestAnimationFrame(tick)})();
+function toggleTheme(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+let menuOpen=false;
+function toggleMenu(){menuOpen=!menuOpen;document.getElementById('mobile-menu').classList.toggle('open',menuOpen);document.getElementById('hamburger').classList.toggle('active',menuOpen);document.body.style.overflow=menuOpen?'hidden':''}
+function updateCount(el){document.getElementById('char-count').textContent=el.value.length}
+function submitForm(e){
+  e.preventDefault();
+  const btn=document.getElementById('submit-btn');
+  const txt=document.getElementById('btn-text');
+  const email=document.getElementById('email').value;
+  const message=document.getElementById('message').value;
+  const agree=document.getElementById('agree').checked;
+  if(!email||!message){alert('Please fill in all required fields.');return}
+  if(!agree){alert('Please agree to the Privacy Policy to continue.');return}
+  btn.classList.add('loading');
+  txt.textContent='Sending...';
+  setTimeout(()=>{btn.classList.remove('loading');txt.textContent='Message Sent ✓';btn.style.background='#22c55e';const t=document.getElementById('form-toast');t.classList.add('show');setTimeout(()=>{t.classList.remove('show');txt.textContent='Send Message';btn.style.background='var(--accent)'},4000)},1800)
+}
+const observer=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
