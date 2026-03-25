@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phantom X Pro — Charlie Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--black:#050505;--white:#f5f5f0;--accent:#c8f53a;--accent2:#00d4ff;--red:#ff2d2d;--gray:#1a1a1a;--gray2:#2a2a2a;--gray3:#555;--text-muted:#888;--font-display:'Bebas Neue',sans-serif;--font-body:'Barlow',sans-serif;--font-cond:'Barlow Condensed',sans-serif;--nav-h:72px;--ease:cubic-bezier(0.25,0.46,0.45,0.94);--ease-spring:cubic-bezier(0.34,1.56,0.64,1)}
+[data-theme="light"]{--black:#f0ede8;--white:#0a0a0a;--gray:#e5e2dd;--gray2:#d8d5d0;--gray3:#aaa;--text-muted:#666}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}img{display:block;width:100%}button{cursor:none;border:none;background:none;font-family:inherit}
+#cursor{position:fixed;width:12px;height:12px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid rgba(200,245,58,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .35s var(--ease),width .4s var(--ease-spring),height .4s var(--ease-spring)}
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:1000;background:rgba(5,5,5,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-logo{font-family:var(--font-display);font-size:28px;letter-spacing:3px;color:var(--white)}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px;list-style:none;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.nav-links a{position:relative;padding-bottom:4px;color:var(--white);opacity:.75;transition:opacity .3s}.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width .3s var(--ease)}.nav-links a:hover{opacity:1}.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .3s;color:var(--white);opacity:.75;position:relative}.nav-icon:hover{background:rgba(255,255,255,.1);opacity:1}
+.cart-badge{position:absolute;top:4px;right:4px;width:16px;height:16px;background:var(--accent);border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--black);font-family:var(--font-cond)}
+.theme-toggle{width:44px;height:24px;background:var(--gray2);border-radius:12px;position:relative;transition:background .3s;cursor:none}.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--accent);transition:transform .3s var(--ease-spring)}
+[data-theme="light"] .theme-toggle::after{transform:translateX(20px)}
+.hamburger{display:none;flex-direction:column;gap:5px;width:30px;padding:5px 0}.hamburger span{display:block;height:2px;background:var(--white);transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#mobile-menu{position:fixed;inset:0;background:rgba(5,5,5,.97);backdrop-filter:blur(30px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .5s var(--ease)}
+#mobile-menu.open{transform:translateX(0)}
+#mobile-menu a{font-family:var(--font-display);font-size:clamp(36px,8vw,64px);letter-spacing:4px;color:var(--white);opacity:0;transform:translateX(40px);transition:opacity .4s,transform .4s,color .3s}
+#mobile-menu.open a{opacity:1;transform:translateX(0)}
+#mobile-menu.open a:nth-child(1){transition-delay:.1s}#mobile-menu.open a:nth-child(2){transition-delay:.15s}#mobile-menu.open a:nth-child(3){transition-delay:.2s}#mobile-menu.open a:nth-child(4){transition-delay:.25s}#mobile-menu.open a:nth-child(5){transition-delay:.3s}#mobile-menu.open a:nth-child(6){transition-delay:.35s}
+#mobile-menu a:hover{color:var(--accent)}
+#toast{position:fixed;bottom:30px;right:30px;background:var(--accent);color:var(--black);padding:16px 24px;border-radius:8px;font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;z-index:5000;transform:translateY(80px);opacity:0;transition:transform .4s var(--ease-spring),opacity .4s;display:flex;align-items:center;gap:10px}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* PRODUCT PAGE */
+.product-page{padding:calc(var(--nav-h) + 40px) 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.breadcrumb{display:flex;gap:8px;align-items:center;font-family:var(--font-cond);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:32px;grid-column:1/-1}
+.breadcrumb a:hover{color:var(--accent)}.breadcrumb span{opacity:.4}
+
+/* GALLERY */
+.gallery{position:sticky;top:calc(var(--nav-h) + 20px)}
+.main-image-wrap{position:relative;border-radius:16px;overflow:hidden;background:var(--gray);aspect-ratio:1;margin-bottom:16px}
+.main-image-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.zoom-lens{position:absolute;inset:0;background:rgba(200,245,58,.03);opacity:0;transition:opacity .3s}
+.main-image-wrap:hover .zoom-lens{opacity:1}
+.main-image-wrap:hover img{transform:scale(1.08)}
+.gallery-tag{position:absolute;top:20px;left:20px;background:var(--accent);color:var(--black);padding:6px 14px;border-radius:4px;font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.thumb{border-radius:8px;overflow:hidden;cursor:none;border:2px solid transparent;transition:border-color .3s;aspect-ratio:1;background:var(--gray)}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+.thumb:hover img{transform:scale(1.05)}
+.thumb.active{border-color:var(--accent)}
+
+/* PRODUCT INFO */
+.product-info{padding-top:20px}
+.product-brand{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.product-name{font-family:var(--font-display);font-size:clamp(48px,5vw,80px);line-height:.9;letter-spacing:-1px;color:var(--white);margin-bottom:20px}
+.product-rating{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.stars-lg{color:#ffd700;font-size:18px;letter-spacing:2px}
+.rating-num{font-family:var(--font-cond);font-size:16px;font-weight:700;color:var(--white)}
+.rating-count{font-size:13px;color:var(--text-muted)}
+.review-link{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);text-decoration:underline}
+/* Price */
+.price-block{display:flex;align-items:baseline;gap:16px;margin-bottom:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
+.price-current{font-family:var(--font-display);font-size:56px;color:var(--white);line-height:1}
+.price-original{font-family:var(--font-cond);font-size:22px;color:var(--text-muted);text-decoration:line-through}
+.price-save{background:var(--red);color:var(--white);padding:4px 12px;border-radius:4px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:1px}
+/* Colors */
+.option-label{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px}
+.color-opts{display:flex;gap:10px;margin-bottom:28px}
+.color-opt{width:36px;height:36px;border-radius:50%;cursor:none;border:3px solid transparent;transition:transform .3s var(--ease-spring),border-color .3s;position:relative}
+.color-opt.active{border-color:var(--white)}
+.color-opt:hover{transform:scale(1.2)}
+/* Sizes */
+.sizes-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px}
+.size-opt{padding:14px 8px;border:1.5px solid rgba(255,255,255,.12);border-radius:6px;text-align:center;font-family:var(--font-cond);font-size:14px;font-weight:700;color:var(--text-muted);cursor:none;transition:all .25s;position:relative}
+.size-opt:hover:not(.out){background:rgba(200,245,58,.08);border-color:rgba(200,245,58,.4);color:var(--white)}
+.size-opt.active{background:var(--accent);color:var(--black);border-color:var(--accent)}
+.size-opt.out{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.size-guide{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);text-decoration:underline;background:none;border:none;margin-bottom:28px;display:block}
+/* Qty */
+.qty-wrap{display:flex;align-items:center;gap:0;margin-bottom:28px;width:fit-content;border:1.5px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden}
+.qty-btn{width:48px;height:52px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--white);background:none;border:none;transition:background .3s;cursor:none}
+.qty-btn:hover{background:rgba(255,255,255,.08)}
+.qty-num{width:60px;text-align:center;font-family:var(--font-display);font-size:24px;color:var(--white);background:none;border:none;outline:none}
+/* CTA Buttons */
+.cta-group{display:flex;gap:12px;flex-direction:column;margin-bottom:28px}
+.btn-add{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--black);padding:20px;border-radius:8px;font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:transform .3s var(--ease-spring),box-shadow .3s;position:relative;overflow:hidden;width:100%}
+.btn-add:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(200,245,58,.35)}
+.btn-buy{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--white);color:var(--black);padding:20px;border-radius:8px;font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:transform .3s var(--ease-spring),box-shadow .3s;width:100%}
+.btn-buy:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(255,255,255,.15)}
+/* Trust badges */
+.trust-badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.trust-item{background:var(--gray);border-radius:8px;padding:16px;text-align:center;border:1px solid rgba(255,255,255,.06)}
+.trust-icon{font-size:24px;margin-bottom:6px}
+.trust-text{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);line-height:1.3}
+/* Stock alert */
+.stock-alert{display:flex;align-items:center;gap:8px;background:rgba(255,45,45,.08);border:1px solid rgba(255,45,45,.2);border-radius:6px;padding:12px 16px;margin-bottom:20px;font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#ff6b6b}
+.stock-dot{width:8px;height:8px;border-radius:50%;background:#ff2d2d;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+
+/* PRODUCT DETAILS TABS */
+.product-tabs-section{padding:0 60px 80px;grid-column:1/-1}
+.tabs-nav{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:40px}
+.tab-btn{font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:16px 28px;color:var(--text-muted);border-bottom:2px solid transparent;transition:color .3s,border-color .3s;transform:translateY(1px)}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--accent)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.tab-panel p{font-size:16px;line-height:1.8;color:var(--text-muted);max-width:700px;margin-bottom:20px}
+.features-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px}
+.feature-row{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--gray);border-radius:8px}
+.feature-icon{font-size:24px;flex-shrink:0}
+.feature-text h4{font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:4px}
+.feature-text p{font-size:13px;color:var(--text-muted);line-height:1.5}
+.specs-table{width:100%;max-width:600px}
+.specs-table tr{border-bottom:1px solid rgba(255,255,255,.06)}
+.specs-table td{padding:14px 0;font-size:14px}
+.specs-table td:first-child{color:var(--text-muted);font-weight:600;letter-spacing:.5px;width:40%}
+.specs-table td:last-child{color:var(--white)}
+/* Reviews */
+.reviews-summary{display:flex;align-items:center;gap:48px;margin-bottom:40px;padding:32px;background:var(--gray);border-radius:12px}
+.review-big-num{font-family:var(--font-display);font-size:80px;line-height:1;color:var(--white)}
+.review-stars-big{font-size:28px;color:#ffd700;letter-spacing:4px}
+.review-total{font-size:14px;color:var(--text-muted);margin-top:4px}
+.review-bars{flex:1;display:flex;flex-direction:column;gap:8px}
+.review-bar-row{display:flex;align-items:center;gap:12px}
+.review-bar-label{font-family:var(--font-cond);font-size:12px;font-weight:700;color:var(--text-muted);width:30px}
+.review-bar-track{flex:1;height:6px;background:var(--gray2);border-radius:3px;overflow:hidden}
+.review-bar-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 1s var(--ease)}
+.review-bar-count{font-size:12px;color:var(--text-muted);width:24px;text-align:right}
+.review-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.review-card{background:var(--gray);border-radius:12px;padding:24px}
+.review-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.reviewer-avatar{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0}.reviewer-avatar img{width:100%;height:100%;object-fit:cover}
+.reviewer-name{font-family:var(--font-cond);font-size:15px;font-weight:700;color:var(--white)}
+.reviewer-meta{font-size:12px;color:var(--text-muted);margin-top:2px}
+.review-stars-sm{color:#ffd700;font-size:13px;margin-bottom:8px}
+.review-text{font-size:14px;line-height:1.7;color:var(--text-muted)}
+.review-verified{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-top:12px}
+
+/* RELATED PRODUCTS */
+.related-section{padding:0 60px 100px}
+.related-section .section-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.related-section h2{font-family:var(--font-display);font-size:clamp(40px,4vw,64px);color:var(--white);margin-bottom:40px}
+.related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product-card{background:var(--gray);border-radius:12px;overflow:hidden;position:relative;transition:transform .4s var(--ease-spring),box-shadow .4s}
+.product-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.card-img-wrap{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--gray2)}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.product-card:hover .card-img-wrap img{transform:scale(1.05)}
+.card-quick-add{position:absolute;bottom:-50px;left:0;right:0;background:var(--accent);color:var(--black);text-align:center;padding:12px;font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:bottom .3s var(--ease)}
+.product-card:hover .card-quick-add{bottom:0}
+.card-body{padding:16px}
+.card-brand{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.card-name{font-family:var(--font-cond);font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px}
+.card-price{font-family:var(--font-cond);font-size:18px;font-weight:700;color:var(--white)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:1100px){.product-page{grid-template-columns:1fr;gap:40px;padding:calc(var(--nav-h)+20px) 24px 60px}.gallery{position:relative;top:auto}.related-grid{grid-template-columns:repeat(2,1fr)}.product-tabs-section{padding:0 24px 60px}.related-section{padding:0 24px 80px}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.features-list,.review-cards{grid-template-columns:1fr}.trust-badges{grid-template-columns:1fr 1fr}.reviews-summary{flex-direction:column;gap:24px}.sizes-grid{grid-template-columns:repeat(4,1fr)}.gallery-thumbs{grid-template-columns:repeat(4,1fr)}.related-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<div id="toast">✓ <span id="toast-msg">Added to cart!</span></div>
+
+<nav id="mobile-menu">
+  <a href="index.html">Home</a><a href="collections.html">Shop</a><a href="product.html">Products</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart</a>
+</nav>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">CHARLIE<span>.</span></a>
+  <ul class="nav-links"><li><a href="collections.html">Men</a></li><li><a href="collections.html">Women</a></li><li><a href="collections.html">New Arrivals</a></li><li><a href="collections.html">Sale</a></li><li><a href="about.html">About</a></li></ul>
+  <div class="nav-right">
+    <a href="cart.html" class="nav-icon" style="position:relative"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge" id="cart-count">0</span></a>
+    <button class="theme-toggle" onclick="toggleTheme()"></button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div style="display:grid">
+<div class="product-page">
+  <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="collections.html">Shop</a><span>/</span><span style="color:var(--white)">Phantom X Pro</span></div>
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="main-image-wrap" id="main-img-wrap">
+      <span class="gallery-tag">New Drop</span>
+      <img id="main-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=90" alt="Phantom X Pro">
+      <div class="zoom-lens"></div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb active" onclick="setImg(this,'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=90')"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" alt=""></div>
+      <div class="thumb" onclick="setImg(this,'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=900&q=90')"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&q=80" alt=""></div>
+      <div class="thumb" onclick="setImg(this,'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=900&q=90')"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&q=80" alt=""></div>
+      <div class="thumb" onclick="setImg(this,'https://images.unsplash.com/photo-1539185441755-769473a23570?w=900&q=90')"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=200&q=80" alt=""></div>
+    </div>
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-info reveal">
+    <div class="product-brand">Charlie Collection — Signature Series</div>
+    <div class="product-name">Phantom X Pro</div>
+    <div class="product-rating">
+      <div class="stars-lg">★★★★★</div>
+      <span class="rating-num">4.9</span>
+      <span class="rating-count">(248 reviews)</span>
+      <a href="#reviews" class="review-link">Read reviews</a>
+    </div>
+
+    <div class="stock-alert"><div class="stock-dot"></div>Only 7 pairs left — selling fast!</div>
+
+    <div class="price-block">
+      <div class="price-current">$189</div>
+      <div class="price-original">$220</div>
+      <div class="price-save">SAVE 14%</div>
+    </div>
+
+    <div class="option-label">Color — <span style="color:var(--white)">Volt Black</span></div>
+    <div class="color-opts">
+      <button class="color-opt active" style="background:#111" title="Volt Black" onclick="selectColor(this,'Volt Black')"></button>
+      <button class="color-opt" style="background:#f5f5f0" title="White Smoke" onclick="selectColor(this,'White Smoke')"></button>
+      <button class="color-opt" style="background:#c8f53a" title="Neon Volt" onclick="selectColor(this,'Neon Volt')"></button>
+      <button class="color-opt" style="background:#ff2d2d" title="Crimson" onclick="selectColor(this,'Crimson')"></button>
+      <button class="color-opt" style="background:#00d4ff" title="Electric Blue" onclick="selectColor(this,'Electric Blue')"></button>
+    </div>
+
+    <div class="option-label">Size — <span style="color:var(--white)" id="selected-size">Select a size</span></div>
+    <div class="sizes-grid">
+      <button class="size-opt" onclick="selectSize(this,'US 6')">US 6</button>
+      <button class="size-opt" onclick="selectSize(this,'US 7')">US 7</button>
+      <button class="size-opt active" onclick="selectSize(this,'US 8')">US 8</button>
+      <button class="size-opt" onclick="selectSize(this,'US 9')">US 9</button>
+      <button class="size-opt" onclick="selectSize(this,'US 10')">US 10</button>
+      <button class="size-opt out" title="Out of Stock">US 11</button>
+      <button class="size-opt" onclick="selectSize(this,'US 12')">US 12</button>
+      <button class="size-opt" onclick="selectSize(this,'US 13')">US 13</button>
+      <button class="size-opt" onclick="selectSize(this,'US 14')">US 14</button>
+      <button class="size-opt out" title="Out of Stock">US 15</button>
+    </div>
+    <button class="size-guide">Size Guide →</button>
+
+    <div class="option-label">Quantity</div>
+    <div class="qty-wrap">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <input type="number" class="qty-num" id="qty" value="1" min="1" max="10">
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+
+    <div class="cta-group">
+      <button class="btn-add" onclick="addToCart('Phantom X Pro',189)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg>
+        Add to Cart
+      </button>
+      <button class="btn-buy">⚡ Buy Now — Fast Checkout</button>
+    </div>
+
+    <div class="trust-badges">
+      <div class="trust-item"><div class="trust-icon">🚚</div><div class="trust-text">Free Shipping over $150</div></div>
+      <div class="trust-item"><div class="trust-icon">↩️</div><div class="trust-text">30-Day Free Returns</div></div>
+      <div class="trust-item"><div class="trust-icon">🔒</div><div class="trust-text">Secure Checkout</div></div>
+    </div>
+
+    <div style="display:flex;gap:12px;align-items:center;padding-top:16px;border-top:1px solid rgba(255,255,255,.07)">
+      <span style="font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)">Share:</span>
+      <button style="font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);padding:8px 14px;border:1px solid rgba(255,255,255,.12);border-radius:4px;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--white)'">Instagram</button>
+      <button style="font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);padding:8px 14px;border:1px solid rgba(255,255,255,.12);border-radius:4px;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--white)'">Twitter</button>
+      <button style="font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);padding:8px 14px;border:1px solid rgba(255,255,255,.12);border-radius:4px;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)';this.style.color='var(--white)'">Copy Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="product-tabs-section">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab(this,'details')">Details</button>
+    <button class="tab-btn" onclick="switchTab(this,'specs')">Specifications</button>
+    <button class="tab-btn" onclick="switchTab(this,'reviews')" id="reviews-tab">Reviews (248)</button>
+    <button class="tab-btn" onclick="switchTab(this,'shipping')">Shipping & Returns</button>
+  </div>
+  <div id="tab-details" class="tab-panel active">
+    <p>The <strong style="color:var(--white)">Charlie Phantom X Pro</strong> is the pinnacle of streetwear performance. Engineered for those who demand both elite aesthetics and uncompromising functionality, this shoe represents everything Charlie Collection stands for.</p>
+    <p>Built with a premium leather upper, reactive foam midsole, and carbon-fiber reinforced outsole, the Phantom X Pro delivers exceptional cushioning and energy return whether you're on the court, the street, or the stage.</p>
+    <div class="features-list">
+      <div class="feature-row"><div class="feature-icon">👟</div><div class="feature-text"><h4>Premium Leather Upper</h4><p>Full-grain leather with perforated panels for breathability and long-lasting structure</p></div></div>
+      <div class="feature-row"><div class="feature-icon">☁️</div><div class="feature-text"><h4>CloudFoam Midsole</h4><p>Proprietary reactive foam delivers 40% more energy return than standard EVA</p></div></div>
+      <div class="feature-row"><div class="feature-icon">🔩</div><div class="feature-text"><h4>Carbon Plate Tech</h4><p>Lightweight carbon fiber plate provides propulsive forward motion and torsional rigidity</p></div></div>
+      <div class="feature-row"><div class="feature-icon">⚡</div><div class="feature-text"><h4>Grip Master Outsole</h4><p>Multi-directional lug pattern with rubber compound for traction on any surface</p></div></div>
+    </div>
+  </div>
+  <div id="tab-specs" class="tab-panel">
+    <table class="specs-table">
+      <tr><td>SKU</td><td>CC-PXP-24-BK</td></tr>
+      <tr><td>Colorway</td><td>Volt Black / White / Neon</td></tr>
+      <tr><td>Upper Material</td><td>Full-grain leather + mesh</td></tr>
+      <tr><td>Midsole</td><td>Charlie CloudFoam™ + Carbon Plate</td></tr>
+      <tr><td>Outsole</td><td>Grip Master™ rubber compound</td></tr>
+      <tr><td>Closure</td><td>Lace-up with speed lacing system</td></tr>
+      <tr><td>Weight</td><td>11.2 oz (US 9)</td></tr>
+      <tr><td>Drop</td><td>8mm heel-to-toe</td></tr>
+      <tr><td>Width</td><td>D (Standard)</td></tr>
+      <tr><td>Origin</td><td>Premium crafted, Vietnam</td></tr>
+      <tr><td>Release Date</td><td>March 2025</td></tr>
+    </table>
+  </div>
+  <div id="tab-reviews" class="tab-panel" id="reviews">
+    <div class="reviews-summary">
+      <div style="text-align:center">
+        <div class="review-big-num">4.9</div>
+        <div class="review-stars-big">★★★★★</div>
+        <div class="review-total">248 Reviews</div>
+      </div>
+      <div class="review-bars">
+        <div class="review-bar-row"><span class="review-bar-label">5★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:87%"></div></div><span class="review-bar-count">87%</span></div>
+        <div class="review-bar-row"><span class="review-bar-label">4★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:9%"></div></div><span class="review-bar-count">9%</span></div>
+        <div class="review-bar-row"><span class="review-bar-label">3★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:3%"></div></div><span class="review-bar-count">3%</span></div>
+        <div class="review-bar-row"><span class="review-bar-label">2★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:1%"></div></div><span class="review-bar-count">1%</span></div>
+        <div class="review-bar-row"><span class="review-bar-label">1★</span><div class="review-bar-track"><div class="review-bar-fill" style="width:0%"></div></div><span class="review-bar-count">0%</span></div>
+      </div>
+    </div>
+    <div class="review-cards">
+      <div class="review-card"><div class="review-header"><div class="reviewer-avatar"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100&q=80" alt=""></div><div><div class="reviewer-name">Jordan M.</div><div class="reviewer-meta">New York, USA · March 2025</div></div></div><div class="review-stars-sm">★★★★★</div><div class="review-text">These are the best sneakers I've ever owned. The CloudFoam midsole is absolutely incredible — I wore them for 8 hours straight and my feet felt amazing.</div><div class="review-verified">✓ Verified Purchase</div></div>
+      <div class="review-card"><div class="review-header"><div class="reviewer-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt=""></div><div><div class="reviewer-name">Marcus T.</div><div class="reviewer-meta">Los Angeles, USA · February 2025</div></div></div><div class="review-stars-sm">★★★★★</div><div class="review-text">Worn these every day for 3 weeks. Zero creasing on the leather, grip is still insane, and I get compliments everywhere I go. Worth every single dollar.</div><div class="review-verified">✓ Verified Purchase</div></div>
+      <div class="review-card"><div class="review-header"><div class="reviewer-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt=""></div><div><div class="reviewer-name">Priya S.</div><div class="reviewer-meta">London, UK · March 2025</div></div></div><div class="review-stars-sm">★★★★★</div><div class="review-text">Finally a brand that creates premium sneakers for women without sacrificing style. The Neon Volt colorway is absolutely fire. Already ordered a second pair.</div><div class="review-verified">✓ Verified Purchase</div></div>
+      <div class="review-card"><div class="review-header"><div class="reviewer-avatar"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt=""></div><div><div class="reviewer-name">Kai R.</div><div class="reviewer-meta">Tokyo, Japan · January 2025</div></div></div><div class="review-stars-sm">★★★★★</div><div class="review-text">Global shipping was fast, packaging was premium, and the shoes exceeded all expectations. Charlie Collection is on a different level from other brands I've tried.</div><div class="review-verified">✓ Verified Purchase</div></div>
+    </div>
+  </div>
+  <div id="tab-shipping" class="tab-panel">
+    <p><strong style="color:var(--white)">Free Standard Shipping</strong> on all orders over $150. Orders are processed within 1-2 business days.</p>
+    <table class="specs-table">
+      <tr><td>Standard Shipping</td><td>5-7 business days — Free on orders $150+, otherwise $9.99</td></tr>
+      <tr><td>Express Shipping</td><td>2-3 business days — $14.99</td></tr>
+      <tr><td>Overnight Shipping</td><td>Next business day — $29.99</td></tr>
+      <tr><td>International</td><td>7-14 business days — rates vary by country</td></tr>
+      <tr><td>Returns</td><td>Free within 30 days. Item must be unworn in original packaging.</td></tr>
+      <tr><td>Exchanges</td><td>Free size exchanges within 30 days of purchase.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<div class="related-section">
+  <div class="section-label">✦ You May Also Like</div>
+  <h2>More Drops</h2>
+  <div class="related-grid">
+    <div class="product-card"><div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500&q=85" alt=""><div class="card-quick-add" onclick="addToCart('Air Strike Elite',159)">+ Quick Add</div></div><div class="card-body"><div class="card-brand">Charlie × Collab</div><div class="card-name">Air Strike Elite</div><div class="card-price">$159</div></div></div>
+    <div class="product-card"><div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500&q=85" alt=""><div class="card-quick-add" onclick="addToCart('Shadow Boot High',225)">+ Quick Add</div></div><div class="card-body"><div class="card-brand">Charlie Premium</div><div class="card-name">Shadow Boot High</div><div class="card-price">$225</div></div></div>
+    <div class="product-card"><div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=500&q=85" alt=""><div class="card-quick-add" onclick="addToCart('Street Runner OG',210)">+ Quick Add</div></div><div class="card-body"><div class="card-brand">Charlie Collection</div><div class="card-name">Street Runner OG</div><div class="card-price">$210</div></div></div>
+    <div class="product-card"><div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&q=85" alt=""><div class="card-quick-add" onclick="addToCart('Volt Force Low',145)">+ Quick Add</div></div><div class="card-body"><div class="card-brand">Charlie Sport</div><div class="card-name">Volt Force Low</div><div class="card-price">$145</div></div></div>
+  </div>
+</div>
+</div><!-- end grid -->
+
+<script>
+const cursor=document.getElementById('cursor'),cursorRing=document.getElementById('cursor-ring');
+let mouseX=0,mouseY=0,ringX=0,ringY=0;
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;cursor.style.left=mouseX+'px';cursor.style.top=mouseY+'px'});
+(function tick(){ringX+=(mouseX-ringX)*.12;ringY+=(mouseY-ringY)*.12;cursorRing.style.left=ringX+'px';cursorRing.style.top=ringY+'px';requestAnimationFrame(tick)})();
+function toggleTheme(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark')}
+let menuOpen=false;
+function toggleMenu(){menuOpen=!menuOpen;document.getElementById('mobile-menu').classList.toggle('open',menuOpen);document.getElementById('hamburger').classList.toggle('active',menuOpen);document.body.style.overflow=menuOpen?'hidden':''}
+let cartCount=0;
+function addToCart(name,price){cartCount++;document.getElementById('cart-count').textContent=cartCount;const t=document.getElementById('toast');document.getElementById('toast-msg').textContent=`"${name}" added to cart!`;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+function setImg(thumb,src){document.getElementById('main-img').src=src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));thumb.classList.add('active')}
+function selectColor(btn,name){document.querySelectorAll('.color-opt').forEach(c=>c.classList.remove('active'));btn.classList.add('active')}
+function selectSize(btn,size){document.querySelectorAll('.size-opt:not(.out)').forEach(s=>s.classList.remove('active'));btn.classList.add('active');document.getElementById('selected-size').textContent=size}
+function changeQty(d){const i=document.getElementById('qty');const v=Math.max(1,Math.min(10,parseInt(i.value)+d));i.value=v}
+function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+id).classList.add('active')}
+const observer=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+// Preselect size
+document.getElementById('selected-size').textContent='US 8';
+</script>
+</body>
+</html>
