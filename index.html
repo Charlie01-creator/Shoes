@@ -154,6 +154,285 @@ tailwind.config = {
   ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
   @media(max-width:768px) { .section-padding { padding: 4rem 1rem; } }
+
+  /* ===== THEME SYSTEM ===== */
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #08080e;
+    --bg-card: rgba(255,255,255,0.03);
+    --bg-card-hover: rgba(255,255,255,0.06);
+    --bg-input: rgba(255,255,255,0.03);
+    --text-primary: #f5f0e8;
+    --text-secondary: #888;
+    --text-muted: #666;
+    --border-color: rgba(255,255,255,0.06);
+    --border-hover: rgba(212,168,83,0.2);
+    --nav-bg: rgba(10,10,15,0.7);
+    --footer-bg: #050508;
+    --shadow-color: rgba(0,0,0,0.4);
+    --hero-overlay: rgba(10,10,15,0.85);
+    --gradient-radial: rgba(212,168,83,0.08);
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #f8f6f1;
+    --bg-secondary: #f0ece4;
+    --bg-card: rgba(255,255,255,0.7);
+    --bg-card-hover: rgba(255,255,255,0.9);
+    --bg-input: rgba(0,0,0,0.03);
+    --text-primary: #1a1a2e;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --border-color: rgba(0,0,0,0.06);
+    --border-hover: rgba(212,168,83,0.4);
+    --nav-bg: rgba(248,246,241,0.85);
+    --footer-bg: #e8e4dc;
+    --shadow-color: rgba(0,0,0,0.08);
+    --hero-overlay: rgba(248,246,241,0.75);
+    --gradient-radial: rgba(212,168,83,0.12);
+  }
+
+  body { background: var(--bg-primary); color: var(--text-primary); }
+
+  /* Theme-aware component overrides */
+  .nav-glass { background: var(--nav-bg); border-bottom-color: var(--border-color); }
+  .nav-link { color: var(--text-secondary); }
+  .nav-link:hover, .nav-link.active { color: var(--gold); }
+
+  .hero-overlay { background: radial-gradient(ellipse at center, transparent 0%, var(--hero-overlay) 70%, var(--bg-primary) 100%); }
+
+  .section-title { color: var(--text-primary); }
+  .section-desc { color: var(--text-secondary); }
+
+  .glass-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+    backdrop-filter: blur(20px);
+  }
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-hover);
+    box-shadow: 0 25px 60px var(--shadow-color), 0 0 40px rgba(212,168,83,0.05);
+  }
+
+  .focus-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .focus-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 30px 80px var(--shadow-color);
+  }
+
+  .testimonial-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .testimonial-card:hover { border-color: var(--border-hover); }
+
+  .news-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .news-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 25px 60px var(--shadow-color);
+  }
+
+  .profile-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .profile-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 25px 60px var(--shadow-color);
+  }
+
+  .donation-tier {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .donation-tier:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 30px 80px var(--shadow-color);
+  }
+  .donation-tier.featured { background: rgba(212,168,83,0.04); }
+  [data-theme="light"] .donation-tier.featured { background: rgba(212,168,83,0.08); }
+
+  .discussion-card {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  .discussion-card:hover { border-color: var(--border-hover); }
+
+  .countdown-box {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+
+  .form-input {
+    background: var(--bg-input);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+  .form-input:focus {
+    border-color: rgba(212,168,83,0.4);
+    background: var(--bg-card-hover);
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+
+  .footer-link { color: var(--text-muted); }
+  .footer-link:hover { color: var(--gold); }
+
+  footer { background: var(--footer-bg); }
+
+  .tab-btn { color: var(--text-secondary); }
+  .tab-btn:hover:not(.active) { color: #ccc; background: rgba(255,255,255,0.03); }
+  [data-theme="light"] .tab-btn:hover:not(.active) { color: #555; background: rgba(0,0,0,0.03); }
+
+  .mobile-menu { background: var(--bg-primary); }
+  .mobile-menu a { color: var(--text-primary); }
+
+  .toast {
+    background: var(--bg-card);
+    border-color: rgba(212,168,83,0.3);
+  }
+
+  /* Scrollbar theming */
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  [data-theme="light"] ::-webkit-scrollbar-thumb { background: #ccc; }
+  [data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  /* Hero title theming */
+  .hero-title { color: var(--text-primary); }
+  .hero-subtitle { color: var(--text-secondary); }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-secondary); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s; font-size: 1rem;
+  }
+  .theme-toggle:hover {
+    border-color: var(--gold); color: var(--gold);
+    background: rgba(212,168,83,0.08);
+  }
+
+  /* Section background theming */
+  .bg-\[\#0a0a0f\] { background: var(--bg-primary) !important; }
+  .bg-\[\#08080e\] { background: var(--bg-secondary) !important; }
+  .bg-\[\#050508\] { background: var(--footer-bg) !important; }
+
+  /* Radial gradient sections */
+  [style*="background: radial-gradient(circle at 30% 50%, rgba(212,168,83,0.08)"] {
+    background: radial-gradient(circle at 30% 50%, var(--gradient-radial) 0%, transparent 50%) !important;
+  }
+  [style*="background: radial-gradient(circle, rgba(212,168,83,0.3)"] {
+    background: radial-gradient(circle, var(--gradient-radial) 0%, transparent 70%) !important;
+  }
+  [style*="background: radial-gradient(ellipse at center, rgba(212,168,83,0.03)"] {
+    background: radial-gradient(ellipse at center, var(--gradient-radial) 0%, transparent 60%) !important;
+  }
+  [style*="background: radial-gradient(ellipse at 70% 50%, rgba(108,92,231,0.05)"] {
+    background: radial-gradient(ellipse at 70% 50%, rgba(108,92,231,0.05) 0%, transparent 60%) !important;
+  }
+  [style*="background: radial-gradient(ellipse at 30% 50%, rgba(212,168,83,0.03)"] {
+    background: radial-gradient(ellipse at 30% 50%, var(--gradient-radial) 0%, transparent 60%) !important;
+  }
+  [style*="background: radial-gradient(ellipse at center, rgba(212,168,83,0.05)"] {
+    background: radial-gradient(ellipse at center, var(--gradient-radial) 0%, transparent 60%) !important;
+  }
+  [style*="background: radial-gradient(ellipse at center, rgba(212,168,83,0.08)"] {
+    background: radial-gradient(ellipse at center, var(--gradient-radial) 0%, transparent 60%) !important;
+  }
+
+  /* Badge text colors stay consistent */
+  .badge { color: inherit; }
+
+  /* Progress bar */
+  .progress-fill { background: var(--gold); }
+
+  /* Scroll line */
+  .scroll-line { background: linear-gradient(to bottom, var(--gold), transparent); }
+
+  /* Loader */
+  #loader { background: var(--bg-primary); }
+  .loader-progress { background: var(--border-color); }
+
+  /* Stat labels */
+  .stat-label { color: var(--text-muted); }
+
+  /* Focus card text */
+  .focus-card h3 { color: var(--text-primary); }
+  .focus-card p { color: var(--text-secondary); }
+
+  /* News card text */
+  .news-card h3 { color: var(--text-primary); }
+  .news-card p { color: var(--text-secondary); }
+
+  /* Discussion card */
+  .discussion-card h3 { color: var(--text-primary); }
+  .discussion-card p { color: var(--text-secondary); }
+
+  /* Profile card */
+  .profile-card h3 { color: var(--text-primary); }
+  .profile-card p { color: var(--text-secondary); }
+
+  /* Testimonial text */
+  .testimonial-card p { color: var(--text-secondary); }
+  .testimonial-card .font-bold { color: var(--text-primary); }
+
+  /* About section text */
+  #about p { color: var(--text-secondary); }
+  #about h2 { color: var(--text-primary); }
+  #about .text-gray-400 { color: var(--text-secondary) !important; }
+
+  /* Events section */
+  #events h3 { color: var(--text-primary); }
+  #events p { color: var(--text-secondary); }
+
+  /* Community section */
+  #community h3 { color: var(--text-primary); }
+  #community p { color: var(--text-secondary); }
+
+  /* Map text */
+  .map-nodes text { fill: var(--text-secondary); }
+  .map-nodes text[fill="#d4a853"] { fill: var(--gold); }
+
+  /* Ensure gold stays gold */
+  .text-amber-400, .text-amber-300 { color: var(--gold) !important; }
+  .bg-amber-500\/10 { background: rgba(212,168,83,0.1) !important; }
+  .bg-amber-500\/20 { background: rgba(212,168,83,0.2) !important; }
+
+  /* Footer text */
+  footer p { color: var(--text-muted); }
+  footer h4 { color: var(--text-primary); }
+  footer a { color: var(--text-muted); }
+  footer a:hover { color: var(--gold); }
+  footer .border-t { border-color: var(--border-color); }
+
+  /* Social icons in footer */
+  footer .w-10 { background: rgba(212,168,83,0.05); }
+  footer .w-10:hover { background: rgba(212,168,83,0.1); }
+
+  /* Ensure section backgrounds override */
+  section[style*="background:"] { background: var(--bg-primary) !important; }
+  [data-theme="light"] section[style*="background: radial-gradient"] {
+    background: var(--bg-primary) !important;
+  }
+
+  /* Specific section backgrounds */
+  .section-padding[style*="background: #08080e"] { background: var(--bg-secondary) !important; }
+  [data-theme="light"] .section-padding[style*="background: #08080e"] { background: var(--bg-secondary) !important; }
+
+  /* Hero label */
+  .section-label { color: var(--gold); }
+
+  /* Glow text */
+  .glow-text { text-shadow: 0 0 40px rgba(212,168,83,0.3), 0 0 80px rgba(212,168,83,0.1); }
+  [data-theme="light"] .glow-text { text-shadow: 0 0 30px rgba(212,168,83,0.2), 0 0 60px rgba(212,168,83,0.05); }
 </style>
 </head>
 <body>
@@ -199,6 +478,9 @@ tailwind.config = {
       <a href="#events" class="nav-link">Events</a>
       <a href="#leadership" class="nav-link">Leadership</a>
       <a href="#community" class="nav-link">Community</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">
+        <i class="fas fa-sun" id="themeIcon"></i>
+      </button>
       <a href="#donate" class="hero-btn hero-btn-primary py-2.5 px-5 text-xs">Join Us</a>
     </div>
     <button class="lg:hidden text-amber-400 text-xl" onclick="openMobileMenu()"><i class="fas fa-bars"></i></button>
@@ -975,6 +1257,31 @@ window.addEventListener('scroll', () => {
     if (link.getAttribute('href') === '#' + current) link.classList.add('active');
   });
 });
+
+// Theme Toggle System
+function toggleTheme() {
+  const html = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  const currentTheme = html.getAttribute('data-theme');
+
+  if (currentTheme === 'light') {
+    html.setAttribute('data-theme', 'dark');
+    icon.className = 'fas fa-sun';
+    localStorage.setItem('aff-theme', 'dark');
+  } else {
+    html.setAttribute('data-theme', 'light');
+    icon.className = 'fas fa-moon';
+    localStorage.setItem('aff-theme', 'light');
+  }
+}
+
+// Load saved theme on page load
+(function() {
+  const savedTheme = localStorage.getItem('aff-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+})();
 </script>
 </body>
 </html>
