@@ -483,7 +483,12 @@ tailwind.config = {
       </button>
       <a href="#donate" class="hero-btn hero-btn-primary py-2.5 px-5 text-xs">Join Us</a>
     </div>
-    <button class="lg:hidden text-amber-400 text-xl" onclick="openMobileMenu()"><i class="fas fa-bars"></i></button>
+    <div class="flex items-center gap-3 lg:hidden">
+      <button class="theme-toggle" id="themeToggleMobile" onclick="toggleTheme()" title="Toggle theme">
+        <i class="fas fa-sun" id="themeIconMobile"></i>
+      </button>
+      <button class="text-amber-400 text-xl" onclick="openMobileMenu()"><i class="fas fa-bars"></i></button>
+    </div>
   </div>
 </nav>
 
@@ -1262,15 +1267,18 @@ window.addEventListener('scroll', () => {
 function toggleTheme() {
   const html = document.documentElement;
   const icon = document.getElementById('themeIcon');
+  const mobileIcon = document.getElementById('themeIconMobile');
   const currentTheme = html.getAttribute('data-theme');
 
   if (currentTheme === 'light') {
     html.setAttribute('data-theme', 'dark');
-    icon.className = 'fas fa-sun';
+    if (icon) icon.className = 'fas fa-sun';
+    if (mobileIcon) mobileIcon.className = 'fas fa-sun';
     localStorage.setItem('aff-theme', 'dark');
   } else {
     html.setAttribute('data-theme', 'light');
-    icon.className = 'fas fa-moon';
+    if (icon) icon.className = 'fas fa-moon';
+    if (mobileIcon) mobileIcon.className = 'fas fa-moon';
     localStorage.setItem('aff-theme', 'light');
   }
 }
@@ -1280,7 +1288,10 @@ function toggleTheme() {
   const savedTheme = localStorage.getItem('aff-theme') || 'dark';
   document.documentElement.setAttribute('data-theme', savedTheme);
   const icon = document.getElementById('themeIcon');
-  if (icon) icon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  const mobileIcon = document.getElementById('themeIconMobile');
+  const iconClass = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  if (icon) icon.className = iconClass;
+  if (mobileIcon) mobileIcon.className = iconClass;
 })();
 </script>
 </body>
