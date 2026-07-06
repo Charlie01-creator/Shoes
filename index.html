@@ -1,459 +1,1263 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>African Future Forum | Shaping Africa's Future</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>African Future Forum | Shaping Africa's Future, Together</title>
+    <meta name="description" content="African Future Forum - A youth-led Pan-African movement empowering young Africans to shape the continent's future through leadership, innovation, and collective action.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
-        
         :root {
-            --gold: #f5c462;
+            --gold: #D4AF37;
+            --gold-light: #F4D03F;
+            --gold-dark: #B8860B;
+            --africa-red: #E63946;
+            --africa-green: #2D6A4F;
+            --africa-orange: #F4A261;
+            --deep-black: #0A0A0F;
+            --dark-surface: #12121A;
+            --dark-elevated: #1A1A2E;
+            --dark-glass: rgba(18, 18, 26, 0.7);
+            --text-primary: #F5F5F5;
+            --text-secondary: #A0A0B0;
+            --text-muted: #6B6B7B;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-gold: rgba(212, 175, 55, 0.3);
+            --gradient-hero: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 50%, #0D1B2A 100%);
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #B8860B 100%);
+            --gradient-sunset: linear-gradient(135deg, #E63946 0%, #F4A261 50%, #D4AF37 100%);
+            --gradient-africa: linear-gradient(180deg, #2D6A4F 0%, #D4AF37 50%, #E63946 100%);
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-        }
-        
-        .heading-font {
-            font-family: 'Playfair Display', sans-serif;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        .hero-bg {
-            background: radial-gradient(circle at 50% 30%, rgba(245, 196, 98, 0.25) 0%, transparent 60%),
-                        linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--deep-black); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1), visibility 1.2s;
+        }
+        .loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loading-particles { position: absolute; width: 100%; height: 100%; overflow: hidden; }
+        .loading-particle {
+            position: absolute; width: 3px; height: 3px;
+            background: var(--gold); border-radius: 50%; opacity: 0;
+            animation: particleFloat 3s ease-in-out infinite;
+        }
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0; transform: translateY(0) scale(0); }
+            50% { opacity: 1; transform: translateY(-30px) scale(1); }
+        }
+        .loading-logo {
+            font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700; color: var(--gold); letter-spacing: 0.15em; opacity: 0;
+            transform: translateY(30px); animation: logoReveal 1.5s ease-out 2s forwards;
+        }
+        .loading-subtitle {
+            font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-muted);
+            letter-spacing: 0.3em; text-transform: uppercase; margin-top: 1rem; opacity: 0;
+            animation: logoReveal 1.5s ease-out 2.5s forwards;
+        }
+        .loading-progress {
+            width: 200px; height: 2px; background: rgba(212, 175, 55, 0.1);
+            margin-top: 2rem; border-radius: 2px; overflow: hidden;
+        }
+        .loading-progress-bar {
+            width: 0%; height: 100%; background: var(--gradient-gold);
+            animation: progressFill 2.5s ease-in-out forwards;
+        }
+        @keyframes progressFill { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes logoReveal { to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 1.5rem 3rem; display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+            opacity: 0; transform: translateY(-20px);
+        }
+        .nav.visible { opacity: 1; transform: translateY(0); }
+        .nav.scrolled {
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); padding: 1rem 3rem;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+            color: var(--gold); letter-spacing: 0.1em; text-decoration: none;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .nav-logo-icon { width: 40px; height: 40px; position: relative; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
+            font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+            transition: color 0.3s ease; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+            background: var(--gold); transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            background: var(--gradient-gold); color: var(--deep-black) !important;
+            padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600 !important;
+            font-size: 0.8rem !important; transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4); }
+        .nav-cta::after { display: none !important; }
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .mobile-menu-btn span { width: 25px; height: 2px; background: var(--gold); transition: all 0.3s ease; }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative; width: 100%; height: 100vh; min-height: 700px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: var(--gradient-hero);
+        }
+        #hero-three-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 15, 0.6) 70%, rgba(10, 10, 15, 0.9) 100%);
+            z-index: 2;
+        }
+        .hero-content { position: relative; z-index: 3; text-align: center; max-width: 900px; padding: 0 2rem; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.2rem; background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border-gold); border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+            opacity: 0; transform: translateY(20px);
+        }
+        .hero-badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+        .hero-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 5.5rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #F4D03F 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            opacity: 0; transform: translateY(40px);
+        }
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: 300; color: var(--text-secondary); max-width: 700px;
+            margin: 0 auto 3rem; line-height: 1.7; opacity: 0; transform: translateY(30px);
+        }
+        .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; opacity: 0; transform: translateY(30px); }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            padding: 1rem 2.5rem; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+            font-weight: 600; letter-spacing: 0.05em; text-decoration: none;
+            border-radius: 50px; transition: all 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+            cursor: pointer; border: none; position: relative; overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--gradient-gold); color: var(--deep-black);
+            box-shadow: 0 4px 30px rgba(212, 175, 55, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px rgba(212, 175, 55, 0.5); }
+        .btn-secondary {
+            background: transparent; color: var(--text-primary);
+            border: 1px solid var(--border-gold); backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold); transform: translateY(-3px); }
+        .hero-scroll {
+            position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+            z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0;
+        }
+        .hero-scroll-text { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+        .hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollLine 2s ease-in-out infinite; }
+        @keyframes scrollLine {
+            0%, 100% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            51% { transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
         }
 
-        .africa-glow {
-            animation: africaPulse 8s ease-in-out infinite;
+        /* ===== SECTION BASE STYLES ===== */
+        section { position: relative; width: 100%; }
+        .section-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .section-header { text-align: center; margin-bottom: 5rem; }
+        .section-label {
+            display: inline-block; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+            margin-bottom: 1rem; position: relative;
         }
+        .section-label::before, .section-label::after {
+            content: ''; position: absolute; top: 50%; width: 40px; height: 1px; background: var(--border-gold);
+        }
+        .section-label::before { right: calc(100% + 1rem); }
+        .section-label::after { left: calc(100% + 1rem); }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--text-primary);
+        }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-weight: 300; }
 
-        @keyframes africaPulse {
-            0%, 100% { opacity: 0.85; }
-            50% { opacity: 1; }
+        /* ===== IMPACT STATISTICS ===== */
+        .impact-section { padding: 8rem 0; background: var(--deep-black); position: relative; overflow: hidden; }
+        .impact-section::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
         }
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .impact-card {
+            text-align: center; padding: 2.5rem 1.5rem; background: var(--dark-surface);
+            border: 1px solid var(--border-subtle); border-radius: 16px;
+            position: relative; overflow: hidden; transition: all 0.4s ease;
+        }
+        .impact-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--gradient-gold); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .impact-card:hover { transform: translateY(-8px); border-color: var(--border-gold); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
+        .impact-card:hover::before { transform: scaleX(1); }
+        .impact-number { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+        .impact-label { font-size: 0.85rem; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+        .impact-icon { width: 50px; height: 50px; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; background: rgba(212, 175, 55, 0.1); border-radius: 12px; font-size: 1.5rem; }
 
-        .nav-link {
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* ===== ABOUT SECTION ===== */
+        .about-section { padding: 8rem 0; background: var(--dark-surface); position: relative; overflow: hidden; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+        .about-visual { position: relative; height: 500px; border-radius: 20px; overflow: hidden; }
+        .about-visual-bg {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(45, 106, 79, 0.3), rgba(212, 175, 55, 0.2), rgba(230, 57, 70, 0.2));
+            filter: blur(60px); animation: aboutGlow 8s ease-in-out infinite;
         }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: linear-gradient(to right, #f5c462, #ff8a65);
-            transition: width 0.4s ease;
+        @keyframes aboutGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.1); } }
+        .about-visual-content { position: relative; z-index: 1; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .africa-map-container { position: relative; width: 350px; height: 400px; }
+        .africa-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3)); }
+        .africa-outline { fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 3000; stroke-dashoffset: 3000; animation: drawMap 3s ease-out forwards; }
+        @keyframes drawMap { to { stroke-dashoffset: 0; } }
+        .africa-inner { fill: rgba(212, 175, 55, 0.08); opacity: 0; animation: fadeIn 1s ease-out 2s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .about-content h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .about-content p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .about-values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2rem; }
+        .about-value {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem;
+            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--border-subtle);
+            border-radius: 10px; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);
+            transition: all 0.3s ease;
         }
-        
-        .nav-link:hover:after {
-            width: 100%;
-        }
+        .about-value:hover { border-color: var(--border-gold); background: rgba(212, 175, 55, 0.1); color: var(--gold); }
+        .about-value-icon { font-size: 1.2rem; }
 
-        .stat-number {
-            font-variant-numeric: tabular-nums;
+        /* ===== FOCUS AREAS ===== */
+        .focus-section { padding: 8rem 0; background: var(--deep-black); position: relative; }
+        .focus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .focus-card {
+            background: var(--dark-surface); border: 1px solid var(--border-subtle); border-radius: 20px;
+            padding: 2.5rem; position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1); cursor: pointer;
+            min-height: 280px; display: flex; flex-direction: column;
         }
+        .focus-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent);
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+        .focus-card:hover { transform: translateY(-10px); border-color: var(--border-gold); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
+        .focus-card:hover::before { opacity: 1; }
+        .focus-icon {
+            width: 60px; height: 60px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 1.5rem; position: relative; z-index: 1;
+        }
+        .focus-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 0.75rem; position: relative; z-index: 1; }
+        .focus-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; position: relative; z-index: 1; flex-grow: 1; }
+        .focus-arrow { margin-top: 1.5rem; font-size: 1.2rem; color: var(--gold); opacity: 0; transform: translateX(-10px); transition: all 0.3s ease; position: relative; z-index: 1; }
+        .focus-card:hover .focus-arrow { opacity: 1; transform: translateX(0); }
 
-        .card-hover {
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        /* ===== INITIATIVES SECTION ===== */
+        .initiatives-section { padding: 8rem 0; background: var(--dark-surface); position: relative; }
+        .initiatives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .initiative-card {
+            background: var(--deep-black); border: 1px solid var(--border-subtle);
+            border-radius: 20px; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1); position: relative;
         }
-        
-        .card-hover:hover {
-            transform: translateY(-12px) scale(1.03);
-            box-shadow: 0 25px 50px -12px rgb(245 196 98 / 0.25);
+        .initiative-card:hover { transform: translateY(-8px); border-color: var(--border-gold); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); }
+        .initiative-image { width: 100%; height: 220px; background: linear-gradient(135deg, rgba(45, 106, 79, 0.4), rgba(212, 175, 55, 0.3), rgba(230, 57, 70, 0.3)); position: relative; overflow: hidden; }
+        .initiative-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--deep-black), transparent); }
+        .initiative-tag {
+            position: absolute; top: 1rem; left: 1rem;
+            padding: 0.4rem 1rem; background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--border-gold); border-radius: 50px;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--gold); z-index: 1;
+        }
+        .initiative-content { padding: 1.5rem 2rem 2rem; }
+        .initiative-content h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .initiative-content p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .initiative-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .initiative-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* ===== COMMUNITY VOICES ===== */
+        .voices-section { padding: 8rem 0; background: var(--deep-black); position: relative; overflow: hidden; }
+        .voices-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .voice-card {
+            background: var(--dark-surface); border: 1px solid var(--border-subtle);
+            border-radius: 20px; padding: 2.5rem; position: relative; transition: all 0.4s ease;
+        }
+        .voice-card:hover { border-color: var(--border-gold); transform: translateY(-5px); }
+        .voice-quote { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 0.5rem; }
+        .voice-text { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem; font-style: italic; }
+        .voice-author { display: flex; align-items: center; gap: 1rem; }
+        .voice-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--africa-orange)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--deep-black); font-size: 1.1rem; }
+        .voice-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .voice-info span { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ===== NEWS SECTION ===== */
+        .news-section { padding: 8rem 0; background: var(--dark-surface); position: relative; }
+        .news-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem; }
+        .news-card { background: var(--deep-black); border: 1px solid var(--border-subtle); border-radius: 16px; overflow: hidden; transition: all 0.4s ease; position: relative; }
+        .news-card:hover { border-color: var(--border-gold); transform: translateY(-5px); }
+        .news-card.featured { grid-row: span 2; }
+        .news-image { width: 100%; height: 200px; background: linear-gradient(135deg, rgba(45, 106, 79, 0.5), rgba(212, 175, 55, 0.4)); position: relative; }
+        .news-card.featured .news-image { height: 300px; }
+        .news-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--deep-black), transparent); }
+        .news-content { padding: 1.5rem; }
+        .news-category {
+            display: inline-block; padding: 0.3rem 0.8rem;
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--border-gold);
+            border-radius: 50px; font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+        }
+        .news-content h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.75rem; }
+        .news-card.featured .news-content h3 { font-size: 1.5rem; }
+        .news-content p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; margin-bottom: 1rem; }
+        .news-date { font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
+
+        /* ===== EVENTS SECTION ===== */
+        .events-section { padding: 8rem 0; background: var(--deep-black); position: relative; }
+        .events-timeline { display: flex; flex-direction: column; gap: 2rem; }
+        .event-card { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; background: var(--dark-surface); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.4s ease; }
+        .event-card:hover { border-color: var(--border-gold); transform: translateX(10px); }
+        .event-date { background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05)); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; border-right: 1px solid var(--border-subtle); }
+        .event-day { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; color: var(--gold); line-height: 1; }
+        .event-month { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
+        .event-content { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+        .event-type { display: inline-block; padding: 0.3rem 0.8rem; background: rgba(230, 57, 70, 0.1); border: 1px solid rgba(230, 57, 70, 0.3); border-radius: 50px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--africa-red); margin-bottom: 0.75rem; width: fit-content; }
+        .event-content h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .event-content p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+        .event-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .event-meta span { display: flex; align-items: center; gap: 0.4rem; }
+        .event-countdown { display: flex; gap: 1rem; margin-top: 1rem; }
+        .countdown-item { text-align: center; padding: 0.75rem 1rem; background: rgba(212, 175, 55, 0.05); border: 1px solid var(--border-subtle); border-radius: 10px; min-width: 60px; }
+        .countdown-number { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+        .countdown-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
+
+        /* ===== LEADERSHIP SECTION ===== */
+        .leadership-section { padding: 8rem 0; background: var(--dark-surface); position: relative; }
+        .leadership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .leader-card { background: var(--deep-black); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1); text-align: center; position: relative; }
+        .leader-card:hover { transform: translateY(-10px); border-color: var(--border-gold); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); }
+        .leader-image { width: 100%; height: 280px; background: linear-gradient(135deg, rgba(45, 106, 79, 0.3), rgba(212, 175, 55, 0.3)); position: relative; overflow: hidden; }
+        .leader-image::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, var(--deep-black), transparent); }
+        .leader-avatar { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--africa-orange)); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 700; color: var(--deep-black); border: 4px solid var(--deep-black); z-index: 2; }
+        .leader-info { padding: 3.5rem 1.5rem 2rem; }
+        .leader-info h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .leader-info .role { font-size: 0.8rem; color: var(--gold); font-weight: 500; margin-bottom: 0.75rem; }
+        .leader-info .bio { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+        .leader-social { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+        .leader-social a { width: 36px; height: 36px; border-radius: 50%; background: var(--dark-surface); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: all 0.3s ease; }
+        .leader-social a:hover { background: var(--gold); color: var(--deep-black); border-color: var(--gold); }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section { padding: 10rem 0; background: var(--deep-black); position: relative; overflow: hidden; text-align: center; }
+        .cta-section::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 800px; height: 800px; background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 70%); pointer-events: none;
+        }
+        .cta-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #F4D03F 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .cta-content p { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--deep-black); border-top: 1px solid var(--border-subtle); padding: 5rem 0 2rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+        .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem; }
+        .footer-brand p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .footer-social { display: flex; gap: 1rem; }
+        .footer-social a { width: 40px; height: 40px; border-radius: 50%; background: var(--dark-surface); border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease; }
+        .footer-social a:hover { background: var(--gold); color: var(--deep-black); border-color: var(--gold); }
+        .footer-column h4 { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 1.5rem; }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 0.75rem; }
+        .footer-column a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease; }
+        .footer-column a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid var(--border-subtle); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { color: var(--text-muted); font-size: 0.8rem; }
+        .footer-bottom-links { display: flex; gap: 2rem; }
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; transition: color 0.3s ease; }
+        .footer-bottom-links a:hover { color: var(--gold); }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); transition: all 0.8s cubic-bezier(0.76, 0, 0.24, 1); }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
+
+        /* ===== GLOWING ORBS ===== */
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; opacity: 0.4; }
+        .glow-orb-1 { width: 400px; height: 400px; background: rgba(212, 175, 55, 0.15); top: 10%; left: -10%; animation: orbFloat 20s ease-in-out infinite; }
+        .glow-orb-2 { width: 300px; height: 300px; background: rgba(45, 106, 79, 0.15); bottom: 20%; right: -5%; animation: orbFloat 25s ease-in-out infinite reverse; }
+        .glow-orb-3 { width: 250px; height: 250px; background: rgba(230, 57, 70, 0.1); top: 50%; left: 50%; animation: orbFloat 18s ease-in-out infinite; }
+        @keyframes orbFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -30px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 80%; max-width: 400px; height: 100vh; background: var(--dark-surface); backdrop-filter: blur(20px); z-index: 1001; padding: 6rem 2rem 2rem; transition: right 0.5s cubic-bezier(0.76, 0, 0.24, 1); border-left: 1px solid var(--border-subtle); }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu-overlay.open { opacity: 1; visibility: visible; }
+        .mobile-menu-links { list-style: none; }
+        .mobile-menu-links li { margin-bottom: 1.5rem; }
+        .mobile-menu-links a { color: var(--text-primary); text-decoration: none; font-size: 1.2rem; font-weight: 500; display: block; padding: 0.5rem 0; border-bottom: 1px solid var(--border-subtle); transition: color 0.3s ease; }
+        .mobile-menu-links a:hover { color: var(--gold); }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--deep-black); }
+        ::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .news-grid { grid-template-columns: 1fr 1fr; }
+            .news-card.featured { grid-row: span 1; grid-column: span 2; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .nav { padding: 1rem 1.5rem; }
+            .about-values { grid-template-columns: 1fr; }
+            .event-card { grid-template-columns: 1fr; }
+            .event-date { border-right: none; border-bottom: 1px solid var(--border-subtle); flex-direction: row; gap: 1rem; padding: 1rem; }
+            .news-grid { grid-template-columns: 1fr; }
+            .news-card.featured { grid-column: span 1; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .initiatives-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
-    <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
-        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-xl font-bold">🇦🇫</div>
-                <div>
-                    <span class="heading-font text-2xl font-bold tracking-tighter">AFF</span>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
-                <a href="#about" class="nav-link">About</a>
-                <a href="#impact" class="nav-link">Impact</a>
-                <a href="#focus" class="nav-link">Focus Areas</a>
-                <a href="#initiatives" class="nav-link">Initiatives</a>
-                <a href="#community" class="nav-link">Community</a>
-                <a href="#events" class="nav-link">Events</a>
-            </div>
-            
-            <div class="flex items-center gap-4">
-                <button onclick="joinMovement()" 
-                        class="px-6 py-3 bg-white text-black font-semibold rounded-2xl hover:bg-amber-400 hover:text-black transition-all flex items-center gap-2">
-                    <i class="fas fa-arrow-right"></i>
-                    JOIN NOW
-                </button>
-            </div>
-        </div>
+<body
+<!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-particles" id="loadingParticles"></div>
+        <div class="loading-logo">AFRICAN FUTURE FORUM</div>
+        <div class="loading-subtitle">Shaping Africa's Future, Together</div>
+        <div class="loading-progress"><div class="loading-progress-bar"></div></div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#focus">Focus Areas</a></li>
+            <li><a href="#initiatives">Initiatives</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#join" class="nav-cta">Join the Movement</a></li>
+        </ul>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">
+            <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none">
+                <path d="M20 2L35 10V30L20 38L5 30V10L20 2Z" stroke="#D4AF37" stroke-width="1.5" fill="rgba(212,175,55,0.1)"/>
+                <circle cx="20" cy="20" r="5" fill="#D4AF37"/>
+                <circle cx="12" cy="15" r="2" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="28" cy="15" r="2" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="12" cy="25" r="2" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="28" cy="25" r="2" fill="#D4AF37" opacity="0.6"/>
+                <line x1="20" y1="15" x2="20" y2="5" stroke="#D4AF37" stroke-width="0.5" opacity="0.5"/>
+                <line x1="20" y1="25" x2="20" y2="35" stroke="#D4AF37" stroke-width="0.5" opacity="0.5"/>
+                <line x1="12" y1="20" x2="5" y2="20" stroke="#D4AF37" stroke-width="0.5" opacity="0.5"/>
+                <line x1="28" y1="20" x2="35" y2="20" stroke="#D4AF37" stroke-width="0.5" opacity="0.5"/>
+            </svg>
+            AFF
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#focus">Focus Areas</a></li>
+            <li><a href="#initiatives">Initiatives</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#join" class="nav-cta">Join the Movement</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
-    <!-- HERO -->
-    <section id="hero" class="hero-bg min-h-screen flex items-center relative">
-        <div class="absolute inset-0 bg-[radial-gradient(#ffffff_0.8px,transparent_1px)] [background-size:50px_50px] opacity-5"></div>
-        
-        <!-- Simulated 3D Africa -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] opacity-30 pointer-events-none">
-            <div id="africa-map" 
-                 class="w-full h-full bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Africa_%28orthographic_projection%29.svg/800px-Africa_%28orthographic_projection%29.svg.png')] 
-                        bg-contain bg-center africa-glow filter drop-shadow-2xl"></div>
-        </div>
-
-        <div class="max-w-screen-2xl mx-auto px-8 pt-24 relative z-10">
-            <div class="max-w-3xl">
-                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-3xl border border-amber-400/30 bg-amber-400/10 mb-8">
-                    <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
-                    <span class="uppercase text-xs tracking-[2px] font-mono">The Voice of Africa's Next Generation</span>
-                </div>
-                
-                <h1 class="heading-font text-7xl md:text-8xl leading-none font-bold tracking-tighter mb-6">
-                    EMPOWERING<br>AFRICA'S<br><span class="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">FUTURE</span>
-                </h1>
-                
-                <p class="text-2xl text-white/80 max-w-lg mb-12">
-                    A youth-led Pan-African movement dedicated to leadership, innovation, and collective action.
-                </p>
-                
-                <div class="flex flex-wrap gap-5">
-                    <button onclick="joinMovement()" 
-                            class="px-10 py-6 bg-gradient-to-r from-amber-400 to-orange-500 text-black font-semibold text-xl rounded-3xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-2xl shadow-amber-500/50">
-                        JOIN THE MOVEMENT
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    
-                    <button onclick="document.getElementById('impact').scrollIntoView({ behavior: 'smooth' })" 
-                            class="px-10 py-6 border border-white/40 hover:border-white/80 rounded-3xl text-lg transition-all backdrop-blur-md">
-                        SEE OUR IMPACT
-                    </button>
-                </div>
-                
-                <div class="mt-16 flex items-center gap-8 text-sm">
-                    <div class="flex -space-x-4">
-                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
-                            <img src="https://picsum.photos/id/64/200/200" alt="" class="w-full h-full object-cover">
-                        </div>
-                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
-                            <img src="https://picsum.photos/id/201/200/200" alt="" class="w-full h-full object-cover">
-                        </div>
-                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
-                            <img src="https://picsum.photos/id/238/200/200" alt="" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-emerald-400 font-medium">12,847+ young leaders united</div>
-                        <div class="text-white/60 text-sm">Across 48 countries</div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="hero-three-canvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge"><span class="hero-badge-dot"></span>Pan-African Youth Movement</div>
+            <h1 class="hero-title">Empowering Africa's Next Generation of Leaders</h1>
+            <p class="hero-subtitle">A movement dedicated to shaping Africa's future through leadership, innovation, entrepreneurship, dialogue, and collective action.</p>
+            <div class="hero-buttons">
+                <a href="#join" class="btn btn-primary">Join the Movement<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                <a href="#initiatives" class="btn btn-secondary">Explore Initiatives<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></a>
             </div>
         </div>
-
-        <div class="absolute bottom-12 left-1/2 flex flex-col items-center">
-            <div class="text-xs tracking-widest mb-3 opacity-60">SCROLL TO BEGIN</div>
-            <div class="w-6 h-10 border border-white/40 rounded-full flex items-center justify-center">
-                <div class="w-1 h-3 bg-white rounded-full animate-bounce"></div>
-            </div>
-        </div>
-
-        <!-- Floating particles -->
-        <div class="absolute inset-0 pointer-events-none" id="particles"></div>
+        <div class="hero-scroll"><span class="hero-scroll-text">Scroll to explore</span><div class="hero-scroll-line"></div></div>
     </section>
 
-    <!-- IMPACT STATS -->
-    <section id="impact" class="py-28 border-t border-white/10 bg-black">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <div class="text-center mb-16">
-                <span class="uppercase text-amber-400 tracking-widest text-sm font-medium">Collective Impact</span>
-                <h2 class="heading-font text-6xl font-bold tracking-tighter mt-3">Numbers That Matter</h2>
+    <!-- Impact Statistics -->
+    <section class="impact-section" id="impact">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Our Impact</span>
+                <h2 class="section-title">Numbers That Define Our Movement</h2>
+                <p class="section-subtitle">Across the continent, young Africans are coming together to create lasting change.</p>
             </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
-                <div class="glass rounded-3xl p-8 text-center card-hover">
-                    <div id="stat1" class="stat-number text-6xl font-bold text-amber-400 mb-2">12847</div>
-                    <div class="text-white/70">Members</div>
-                </div>
-                <div class="glass rounded-3xl p-8 text-center card-hover">
-                    <div id="stat2" class="stat-number text-6xl font-bold text-amber-400 mb-2">48</div>
-                    <div class="text-white/70">Countries</div>
-                </div>
-                <div class="glass rounded-3xl p-8 text-center card-hover">
-                    <div id="stat3" class="stat-number text-6xl font-bold text-amber-400 mb-2">237</div>
-                    <div class="text-white/70">Projects</div>
-                </div>
-                <div class="glass rounded-3xl p-8 text-center card-hover">
-                    <div id="stat4" class="stat-number text-6xl font-bold text-amber-400 mb-2">41</div>
-                    <div class="text-white/70">Summits</div>
-                </div>
-                <div class="glass rounded-3xl p-8 text-center card-hover">
-                    <div id="stat5" class="stat-number text-6xl font-bold text-amber-400 mb-2">1200000</div>
-                    <div class="text-white/70">Lives Touched</div>
-                </div>
+            <div class="impact-grid">
+                <div class="impact-card reveal"><div class="impact-icon">🌍</div><div class="impact-number" data-target="50000">0</div><div class="impact-label">Active Members</div></div>
+                <div class="impact-card reveal"><div class="impact-icon">🏳️</div><div class="impact-number" data-target="54">0</div><div class="impact-label">Countries Represented</div></div>
+                <div class="impact-card reveal"><div class="impact-icon">⭐</div><div class="impact-number" data-target="1200">0</div><div class="impact-label">Youth Leaders</div></div>
+                <div class="impact-card reveal"><div class="impact-icon">🤝</div><div class="impact-number" data-target="350">0</div><div class="impact-label">Community Projects</div></div>
+                <div class="impact-card reveal"><div class="impact-icon">📅</div><div class="impact-number" data-target="180">0</div><div class="impact-label">Events Hosted</div></div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="py-28 bg-gradient-to-b from-black to-[#111]">
-        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="heading-font text-6xl font-bold tracking-tighter leading-none mb-8">
-                    We are the generation<br>that will transform Africa
-                </h2>
-                <div class="prose prose-invert text-lg text-white/80">
-                    <p>The African Future Forum is a youth-led Pan-African movement. We believe young Africans must lead the conversation on our continent's destiny.</p>
-                    <p>Through dialogue, innovation, entrepreneurship, policy advocacy, and bold collective action, we are building the Africa we want to see.</p>
-                </div>
-                <div class="mt-10 flex items-center gap-4">
-                    <div class="h-px w-16 bg-amber-400"></div>
-                    <span class="uppercase text-sm tracking-widest">Leadership • Innovation • Unity</span>
-                </div>
-            </div>
-            
-            <div class="relative">
-                <div class="glass rounded-3xl p-2">
-                    <img src="https://picsum.photos/id/1015/1200/800" alt="African youth leaders" 
-                         class="rounded-3xl w-full aspect-video object-cover">
-                </div>
-                <div class="absolute -bottom-6 -right-6 glass p-6 rounded-3xl max-w-[240px]">
-                    <div class="text-amber-400 text-5xl font-light">“</div>
-                    <p class="italic text-white/90">The future is not something we enter. It is something we create.</p>
-                    <div class="mt-6 text-sm">— AFF Youth Ambassador, Kenya</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOCUS AREAS -->
-    <section id="focus" class="py-28 bg-black">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <div class="text-center mb-16">
-                <h2 class="heading-font text-6xl font-bold tracking-tighter">Our Focus Areas</h2>
-                <p class="text-white/60 mt-4 max-w-md mx-auto">Where young African minds are creating solutions today</p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div onclick="alert('Education focus area - In a real site this would expand')" 
-                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
-                    <div class="text-4xl mb-6">📚</div>
-                    <h3 class="text-2xl font-semibold mb-3">Education &amp; Skills</h3>
-                    <p class="text-white/70 text-sm leading-relaxed">Revolutionizing access to world-class learning and future-ready skills.</p>
-                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
-                </div>
-                
-                <!-- Card 2 -->
-                <div onclick="alert('Technology focus area')" 
-                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
-                    <div class="text-4xl mb-6">💻</div>
-                    <h3 class="text-2xl font-semibold mb-3">Technology &amp; Innovation</h3>
-                    <p class="text-white/70 text-sm leading-relaxed">Building African solutions for African challenges using frontier tech.</p>
-                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
-                </div>
-                
-                <!-- Card 3 -->
-                <div onclick="alert('Entrepreneurship focus area')" 
-                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
-                    <div class="text-4xl mb-6">🚀</div>
-                    <h3 class="text-2xl font-semibold mb-3">Entrepreneurship</h3>
-                    <p class="text-white/70 text-sm leading-relaxed">Supporting the next generation of job creators and ecosystem builders.</p>
-                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
-                </div>
-                
-                <!-- Card 4 -->
-                <div onclick="alert('Climate focus area')" 
-                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
-                    <div class="text-4xl mb-6">🌍</div>
-                    <h3 class="text-2xl font-semibold mb-3">Climate Action</h3>
-                    <p class="text-white/70 text-sm leading-relaxed">Leading just and sustainable solutions for our continent.</p>
-                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- COMMUNITY VOICES -->
-    <section id="community" class="py-28 bg-gradient-to-b from-black to-[#0a0a0a]">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <h2 class="heading-font text-5xl font-bold tracking-tighter text-center mb-16">Voices of the Movement</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-3xl p-8">
-                    <p class="italic text-lg">"AFF gave me the platform and network to launch my agritech startup that is now feeding 8,000 families in Northern Nigeria."</p>
-                    <div class="mt-8 flex items-center gap-4">
-                        <img src="https://picsum.photos/id/64/128/128" class="w-12 h-12 rounded-2xl" alt="">
-                        <div>
-                            <div class="font-medium">Aisha Mohammed</div>
-                            <div class="text-xs text-white/60">Nigeria • AgriTech Founder</div>
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-visual reveal-left">
+                    <div class="about-visual-bg"></div>
+                    <div class="about-visual-content">
+                        <div class="africa-map-container">
+                            <svg class="africa-svg" viewBox="0 0 350 400" xmlns="http://www.w3.org/2000/svg">
+                                <path class="africa-inner" d="M175 20C175 20 120 30 100 60C80 90 70 120 75 150C80 180 90 200 85 230C80 260 70 290 80 320C90 350 120 370 150 380C180 390 210 380 230 360C250 340 260 310 255 280C250 250 240 220 245 190C250 160 260 130 250 100C240 70 210 40 175 20Z"/>
+                                <path class="africa-outline" d="M175 20C175 20 120 30 100 60C80 90 70 120 75 150C80 180 90 200 85 230C80 260 70 290 80 320C90 350 120 370 150 380C180 390 210 380 230 360C250 340 260 310 255 280C250 250 240 220 245 190C250 160 260 130 250 100C240 70 210 40 175 20Z"/>
+                                <circle cx="140" cy="80" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/></circle>
+                                <circle cx="200" cy="100" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.5s" repeatCount="indefinite"/></circle>
+                                <circle cx="120" cy="180" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatCount="indefinite"/></circle>
+                                <circle cx="200" cy="200" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.2s" repeatCount="indefinite"/></circle>
+                                <circle cx="160" cy="280" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/></circle>
+                                <circle cx="210" cy="320" r="4" fill="#D4AF37" opacity="0.8"><animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.3s" repeatCount="indefinite"/></circle>
+                                <line x1="140" y1="80" x2="200" y2="100" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/></line>
+                                <line x1="200" y1="100" x2="200" y2="200" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.5s" repeatCount="indefinite"/></line>
+                                <line x1="140" y1="80" x2="120" y2="180" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/></line>
+                                <line x1="120" y1="180" x2="160" y2="280" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.2s" repeatCount="indefinite"/></line>
+                                <line x1="200" y1="200" x2="210" y2="320" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.8s" repeatCount="indefinite"/></line>
+                            </svg>
                         </div>
                     </div>
                 </div>
-                
-                <div class="glass rounded-3xl p-8">
-                    <p class="italic text-lg">"Through AFF I advocated for youth inclusion in my country's climate policy. We made history."</p>
-                    <div class="mt-8 flex items-center gap-4">
-                        <img src="https://picsum.photos/id/201/128/128" class="w-12 h-12 rounded-2xl" alt="">
-                        <div>
-                            <div class="font-medium">Kwame Osei</div>
-                            <div class="text-xs text-white/60">Ghana • Climate Advocate</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass rounded-3xl p-8">
-                    <p class="italic text-lg">"The connections and mentorship I received through AFF changed the trajectory of my career and my impact."</p>
-                    <div class="mt-8 flex items-center gap-4">
-                        <img src="https://picsum.photos/id/238/128/128" class="w-12 h-12 rounded-2xl" alt="">
-                        <div>
-                            <div class="font-medium">Zainab Diallo</div>
-                            <div class="text-xs text-white/60">Senegal • Policy Leader</div>
-                        </div>
+                <div class="about-content reveal-right">
+                    <span class="section-label" style="text-align:left; margin-bottom:1.5rem;">About Us</span>
+                    <h2>Building the Africa of Tomorrow, Today</h2>
+                    <p>The African Future Forum is a youth-led Pan-African movement that unites young Africans across the continent and diaspora. We believe that the solutions to Africa's most pressing challenges lie in the hands of its youth.</p>
+                    <p>Through dialogue, innovation, entrepreneurship, and collective action, we are creating a platform where young leaders can connect, collaborate, and catalyze transformative change across education, technology, governance, and sustainable development.</p>
+                    <p>Our mission is rooted in the belief that Africa's greatest resource is its people — particularly its young people, who represent over 60% of the continent's population.</p>
+                    <div class="about-values">
+                        <div class="about-value"><span class="about-value-icon">🎯</span><span>Leadership</span></div>
+                        <div class="about-value"><span class="about-value-icon">💡</span><span>Innovation</span></div>
+                        <div class="about-value"><span class="about-value-icon">⚖️</span><span>Accountability</span></div>
+                        <div class="about-value"><span class="about-value-icon">🤝</span><span>Unity</span></div>
+                        <div class="about-value"><span class="about-value-icon">🚀</span><span>Opportunity</span></div>
+                        <div class="about-value"><span class="about-value-icon">🌍</span><span>Collaboration</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FINAL CTA -->
-    <section class="py-32 bg-gradient-to-br from-amber-900/20 via-black to-black border-t border-amber-400/20">
-        <div class="max-w-2xl mx-auto text-center px-8">
-            <h2 class="heading-font text-6xl font-bold tracking-tighter mb-8">Ready to shape Africa's future?</h2>
-            <p class="text-xl text-white/70 mb-12">Join thousands of young leaders across the continent who refuse to wait.</p>
-            
-            <button onclick="joinMovement()" 
-                    class="w-full md:w-auto px-16 py-8 text-2xl font-semibold bg-white text-black rounded-3xl hover:bg-amber-400 transition-all shadow-2xl">
-                BECOME A MEMBER TODAY
-            </button>
-            
-            <div class="mt-10 text-sm opacity-60">Free to join • Open to all Africans aged 18-35</div>
+    <!-- Focus Areas -->
+    <section class="focus-section" id="focus">
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Our Focus</span>
+                <h2 class="section-title">Eight Pillars of Transformation</h2>
+                <p class="section-subtitle">We address Africa's most critical sectors through targeted programs and initiatives.</p>
+            </div>
+            <div class="focus-grid">
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05));">📚</div>
+                    <h3>Education</h3>
+                    <p>Reimagining education across Africa through digital learning platforms, scholarship programs, and skills development initiatives that prepare youth for the future of work.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05));">💻</div>
+                    <h3>Technology</h3>
+                    <p>Accelerating digital transformation through coding bootcamps, AI research hubs, and tech entrepreneurship programs that position Africa at the forefront of innovation.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.05));">🏢</div>
+                    <h3>Entrepreneurship</h3>
+                    <p>Fueling Africa's startup ecosystem with incubators, venture capital connections, and mentorship networks that turn ideas into thriving businesses.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.05));">⚖️</div>
+                    <h3>Governance</h3>
+                    <p>Empowering youth participation in policy-making, electoral processes, and civic engagement to build transparent, accountable institutions across the continent.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.05));">🌱</div>
+                    <h3>Climate Action</h3>
+                    <p>Leading Africa's green revolution through renewable energy projects, sustainable agriculture, and climate resilience programs that protect our planet and people.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(249,115,22,0.05));">🌾</div>
+                    <h3>Agriculture</h3>
+                    <p>Transforming African agriculture with precision farming, agri-tech solutions, and youth-led cooperatives that ensure food security and economic growth.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(236,72,153,0.05));">🏥</div>
+                    <h3>Health</h3>
+                    <p>Revolutionizing healthcare access through telemedicine, community health workers, and pharmaceutical innovation tailored to Africa's unique challenges.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+                <div class="focus-card reveal">
+                    <div class="focus-icon" style="background: linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.05));">🛣️</div>
+                    <h3>Infrastructure</h3>
+                    <p>Building the physical and digital backbone of Africa through smart cities, transportation networks, and connectivity projects that bridge the urban-rural divide.</p>
+                    <div class="focus-arrow">→</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black border-t border-white/10 py-20">
-        <div class="max-w-screen-2xl mx-auto px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-2xl">🇦🇫</div>
-                    <span class="heading-font text-3xl font-bold tracking-tighter">African Future Forum</span>
+    <!-- Initiatives -->
+    <section class="initiatives-section" id="initiatives">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Programs</span>
+                <h2 class="section-title">Current Initiatives</h2>
+                <p class="section-subtitle">Active programs driving real impact across the continent.</p>
+            </div>
+            <div class="initiatives-grid">
+                <div class="initiative-card reveal">
+                    <div class="initiative-image"><span class="initiative-tag">Flagship Program</span></div>
+                    <div class="initiative-content">
+                        <h3>Youth Leadership Summit 2026</h3>
+                        <p>Our annual flagship gathering bringing together 5,000+ young leaders from all 54 African nations to discuss policy, innovation, and collective action.</p>
+                        <div class="initiative-meta"><span>📍 Addis Ababa, Ethiopia</span><span>📅 August 2026</span></div>
+                    </div>
                 </div>
-                
-                <div class="text-center md:text-right">
-                    <div class="text-white/60 text-sm">© 2026 African Future Forum. All Rights Reserved.</div>
-                    <div class="flex gap-6 text-sm mt-4 justify-center md:justify-end">
-                        <a href="#" class="hover:text-amber-400 transition">Privacy</a>
-                        <a href="#" class="hover:text-amber-400 transition">Transparency</a>
-                        <a href="#" class="hover:text-amber-400 transition">Contact</a>
+                <div class="initiative-card reveal">
+                    <div class="initiative-image" style="background: linear-gradient(135deg, rgba(139,92,246,0.4), rgba(59,130,246,0.3));"><span class="initiative-tag">Innovation</span></div>
+                    <div class="initiative-content">
+                        <h3>Africa Innovation Challenge</h3>
+                        <p>A continent-wide competition identifying and funding breakthrough solutions in healthcare, agriculture, energy, and education technology.</p>
+                        <div class="initiative-meta"><span>💰 $2M Prize Pool</span><span>🌍 54 Countries</span></div>
+                    </div>
+                </div>
+                <div class="initiative-card reveal">
+                    <div class="initiative-image" style="background: linear-gradient(135deg, rgba(34,197,94,0.4), rgba(16,185,129,0.3));"><span class="initiative-tag">Climate</span></div>
+                    <div class="initiative-content">
+                        <h3>Green Africa Initiative</h3>
+                        <p>Planting 100 million trees, deploying 500 solar microgrids, and training 10,000 youth in renewable energy technologies across rural Africa.</p>
+                        <div class="initiative-meta"><span>🌳 100M Trees</span><span>⚡ 500 Solar Grids</span></div>
+                    </div>
+                </div>
+                <div class="initiative-card reveal">
+                    <div class="initiative-image" style="background: linear-gradient(135deg, rgba(245,158,11,0.4), rgba(249,115,22,0.3));"><span class="initiative-tag">Education</span></div>
+                    <div class="initiative-content">
+                        <h3>Digital Skills Academy</h3>
+                        <p>Free online and in-person training in AI, blockchain, cybersecurity, and cloud computing, reaching 50,000 young Africans annually.</p>
+                        <div class="initiative-meta"><span>👥 50,000 Students</span><span>📱 Online + Offline</span></div>
+                    </div>
+                </div>
+                <div class="initiative-card reveal">
+                    <div class="initiative-image" style="background: linear-gradient(135deg, rgba(236,72,153,0.4), rgba(244,63,94,0.3));"><span class="initiative-tag">Policy</span></div>
+                    <div class="initiative-content">
+                        <h3>Youth Policy Fellowship</h3>
+                        <p>Placing 200 young policy experts in government ministries across Africa to influence legislation on youth employment, education, and innovation.</p>
+                        <div class="initiative-meta"><span>🏛️ 200 Fellows</span><span>📋 20 Ministries</span></div>
+                    </div>
+                </div>
+                <div class="initiative-card reveal">
+                    <div class="initiative-image" style="background: linear-gradient(135deg, rgba(6,182,212,0.4), rgba(59,130,246,0.3));"><span class="initiative-tag">Network</span></div>
+                    <div class="initiative-content">
+                        <h3>Pan-African Mentorship Network</h3>
+                        <p>Connecting emerging leaders with established African executives, entrepreneurs, and policymakers for one-on-one mentorship and career guidance.</p>
+                        <div class="initiative-meta"><span>👔 5,000 Mentors</span><span>🎯 20,000 Mentees</span></div>
                     </div>
                 </div>
             </div>
-            
-            <div class="text-center text-xs text-white/40 mt-16">
-                Shaping Africa's Future, Together.
+        </div>
+    </section>
+
+    <!-- Community Voices -->
+    <section class="voices-section" id="voices">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Community</span>
+                <h2 class="section-title">Voices of Change</h2>
+                <p class="section-subtitle">Hear from the young Africans shaping our continent's future.</p>
+            </div>
+            <div class="voices-grid">
+                <div class="voice-card reveal">
+                    <div class="voice-quote">"</div>
+                    <p class="voice-text">The African Future Forum gave me the platform and network to launch my agritech startup. Today, we're serving 10,000 farmers across East Africa. This movement is real.</p>
+                    <div class="voice-author">
+                        <div class="voice-avatar">AK</div>
+                        <div class="voice-info"><h4>Amina Kone</h4><span>Founder, AgriTech Solutions · Côte d'Ivoire</span></div>
+                    </div>
+                </div>
+                <div class="voice-card reveal">
+                    <div class="voice-quote">"</div>
+                    <p class="voice-text">Through AFF's policy fellowship, I helped draft Kenya's National Youth Employment Strategy. For the first time, young people had a seat at the table where decisions are made.</p>
+                    <div class="voice-author">
+                        <div class="voice-avatar">JM</div>
+                        <div class="voice-info"><h4>James Mwangi</h4><span>Policy Fellow · Kenya</span></div>
+                    </div>
+                </div>
+                <div class="voice-card reveal">
+                    <div class="voice-quote">"</div>
+                    <p class="voice-text">I joined AFF as a student in Lagos. Three years later, I've built a team of 50 volunteers running coding bootcamps in 12 Nigerian states. The community here is unmatched.</p>
+                    <div class="voice-author">
+                        <div class="voice-avatar">OO</div>
+                        <div class="voice-info"><h4>Olivia Okonkwo</h4><span>Chapter Lead · Nigeria</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Upcoming</span>
+                <h2 class="section-title">Events & Conferences</h2>
+                <p class="section-subtitle">Join us at our upcoming gatherings across the continent.</p>
+            </div>
+            <div class="events-timeline">
+                <div class="event-card reveal">
+                    <div class="event-date"><span class="event-day">15</span><span class="event-month">August 2026</span></div>
+                    <div class="event-content">
+                        <span class="event-type">Summit</span>
+                        <h3>Youth Leadership Summit 2026</h3>
+                        <p>The largest gathering of young African leaders, featuring keynote speeches, workshops, and networking sessions with global changemakers.</p>
+                        <div class="event-meta"><span>📍 Addis Ababa, Ethiopia</span><span>👥 5,000 Attendees</span></div>
+                        <div class="event-countdown" data-date="2026-08-15T09:00:00">
+                            <div class="countdown-item"><div class="countdown-number" data-unit="days">00</div><div class="countdown-label">Days</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="hours">00</div><div class="countdown-label">Hours</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="minutes">00</div><div class="countdown-label">Mins</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="seconds">00</div><div class="countdown-label">Secs</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal">
+                    <div class="event-date"><span class="event-day">22</span><span class="event-month">September 2026</span></div>
+                    <div class="event-content">
+                        <span class="event-type" style="background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); color: #3B82F6;">Webinar</span>
+                        <h3>Future of AI in Africa</h3>
+                        <p>A virtual panel discussion with leading African AI researchers and entrepreneurs exploring how artificial intelligence can drive African development.</p>
+                        <div class="event-meta"><span>💻 Virtual Event</span><span>🌍 Global Audience</span></div>
+                        <div class="event-countdown" data-date="2026-09-22T14:00:00">
+                            <div class="countdown-item"><div class="countdown-number" data-unit="days">00</div><div class="countdown-label">Days</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="hours">00</div><div class="countdown-label">Hours</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="minutes">00</div><div class="countdown-label">Mins</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="seconds">00</div><div class="countdown-label">Secs</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card reveal">
+                    <div class="event-date"><span class="event-day">10</span><span class="event-month">November 2026</span></div>
+                    <div class="event-content">
+                        <span class="event-type" style="background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: #22C55E;">Forum</span>
+                        <h3>Climate Action Youth Forum</h3>
+                        <p>Regional forum bringing together climate activists, scientists, and policymakers to develop actionable strategies for Africa's green transition.</p>
+                        <div class="event-meta"><span>📍 Nairobi, Kenya</span><span>🌱 Climate Focus</span></div>
+                        <div class="event-countdown" data-date="2026-11-10T08:00:00">
+                            <div class="countdown-item"><div class="countdown-number" data-unit="days">00</div><div class="countdown-label">Days</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="hours">00</div><div class="countdown-label">Hours</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="minutes">00</div><div class="countdown-label">Mins</div></div>
+                            <div class="countdown-item"><div class="countdown-number" data-unit="seconds">00</div><div class="countdown-label">Secs</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="leadership-section" id="leadership">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Our Team</span>
+                <h2 class="section-title">Leadership</h2>
+                <p class="section-subtitle">Meet the visionaries guiding the African Future Forum.</p>
+            </div>
+            <div class="leadership-grid">
+                <div class="leader-card reveal">
+                    <div class="leader-image"><div class="leader-avatar">KA</div></div>
+                    <div class="leader-info">
+                        <h3>Kofi Asante</h3>
+                        <div class="role">Executive Director</div>
+                        <p class="bio">Former UN Youth Envoy with 15 years of experience in Pan-African development and youth empowerment initiatives.</p>
+                        <div class="leader-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">@</a></div>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-image" style="background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(59,130,246,0.3));"><div class="leader-avatar" style="background: linear-gradient(135deg, #8B5CF6, #3B82F6);">ZN</div></div>
+                    <div class="leader-info">
+                        <h3>Zara Ndiaye</h3>
+                        <div class="role">Chief Operations Officer</div>
+                        <p class="bio">Tech entrepreneur and former McKinsey consultant leading AFF's operational strategy across 54 countries.</p>
+                        <div class="leader-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">@</a></div>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-image" style="background: linear-gradient(135deg, rgba(236,72,153,0.3), rgba(244,63,94,0.3));"><div class="leader-avatar" style="background: linear-gradient(135deg, #EC4899, #F43F5E);">TM</div></div>
+                    <div class="leader-info">
+                        <h3>Thabo Molefe</h3>
+                        <div class="role">Director of Programs</div>
+                        <p class="bio">Development economist specializing in youth employment and education policy across Sub-Saharan Africa.</p>
+                        <div class="leader-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">@</a></div>
+                    </div>
+                </div>
+                <div class="leader-card reveal">
+                    <div class="leader-image" style="background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(16,185,129,0.3));"><div class="leader-avatar" style="background: linear-gradient(135deg, #22C55E, #10B981);">FO</div></div>
+                    <div class="leader-info">
+                        <h3>Fatima Osei</h3>
+                        <div class="role">Head of Partnerships</div>
+                        <p class="bio">Diplomat and partnership strategist building bridges between AFF, governments, NGOs, and private sector across Africa.</p>
+                        <div class="leader-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">@</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section" id="news">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Latest</span>
+                <h2 class="section-title">News & Updates</h2>
+                <p class="section-subtitle">Stay informed about our latest achievements and announcements.</p>
+            </div>
+            <div class="news-grid">
+                <div class="news-card featured reveal">
+                    <div class="news-image"></div>
+                    <div class="news-content">
+                        <span class="news-category">Featured</span>
+                        <h3>African Future Forum Launches $10M Innovation Fund for Youth Entrepreneurs</h3>
+                        <p>The fund will support 500 startups across the continent over the next three years, with a focus on technology, agriculture, and climate solutions.</p>
+                        <div class="news-date">📅 July 1, 2026 · 5 min read</div>
+                    </div>
+                </div>
+                <div class="news-card reveal">
+                    <div class="news-image" style="background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(59,130,246,0.4));"></div>
+                    <div class="news-content">
+                        <span class="news-category">Technology</span>
+                        <h3>New Digital Skills Academy Reaches 10,000 Students Milestone</h3>
+                        <div class="news-date">📅 June 28, 2026 · 3 min read</div>
+                    </div>
+                </div>
+                <div class="news-card reveal">
+                    <div class="news-image" style="background: linear-gradient(135deg, rgba(34,197,94,0.5), rgba(16,185,129,0.4));"></div>
+                    <div class="news-content">
+                        <span class="news-category">Climate</span>
+                        <h3>Green Africa Initiative Plants 5 Million Trees in First Quarter</h3>
+                        <div class="news-date">📅 June 15, 2026 · 4 min read</div>
+                    </div>
+                </div>
+                <div class="news-card reveal">
+                    <div class="news-image" style="background: linear-gradient(135deg, rgba(245,158,11,0.5), rgba(249,115,22,0.4));"></div>
+                    <div class="news-content">
+                        <span class="news-category">Policy</span>
+                        <h3>Aff Partners with African Union on Youth Employment Framework</h3>
+                        <div class="news-date">📅 June 10, 2026 · 3 min read</div>
+                    </div>
+                </div>
+                <div class="news-card reveal">
+                    <div class="news-image" style="background: linear-gradient(135deg, rgba(236,72,153,0.5), rgba(244,63,94,0.4));"></div>
+                    <div class="news-content">
+                        <span class="news-category">Community</span>
+                        <h3>Chapter Network Expands to 15 New Cities Across Africa</h3>
+                        <div class="news-date">📅 May 28, 2026 · 2 min read</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="join">
+        <div class="cta-content reveal">
+            <h2>Be Part of Africa's Transformation</h2>
+            <p>Join 50,000+ young Africans who are already shaping the future of our continent. Together, we can build the Africa we dream of.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary" style="padding: 1.2rem 3rem; font-size: 1rem;">Join the Movement<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                <a href="#" class="btn btn-secondary" style="padding: 1.2rem 3rem; font-size: 1rem;">Partner With Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="section-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>African Future Forum</h3>
+                    <p>Uniting young Africans to shape the continent's future through leadership, innovation, and collective action. Together, we are building the Africa of tomorrow.</p>
+                    <div class="footer-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">f</a><a href="#">📷</a><a href="#">▶</a></div>
+                </div>
+                <div class="footer-column">
+                    <h4>Organization</h4>
+                    <ul><li><a href="#about">About Us</a></li><li><a href="#leadership">Leadership</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Contact</a></li></ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Programs</h4>
+                    <ul><li><a href="#initiatives">Initiatives</a></li><li><a href="#events">Events</a></li><li><a href="#">Membership</a></li><li><a href="#">Mentorship</a></li><li><a href="#">Chapters</a></li></ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Get Involved</h4>
+                    <ul><li><a href="#join">Join AFF</a></li><li><a href="#">Donate</a></li><li><a href="#">Partner</a></li><li><a href="#">Volunteer</a></li><li><a href="#">Newsletter</a></li></ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 African Future Forum. All rights reserved. Shaping Africa's Future, Together.</p>
+                <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Tailwind script already loaded via CDN
-        
-        // Animate counters
-        function animateValue(id, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                document.getElementById(id).innerHTML = value.toLocaleString('en-US');
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                } else {
-                    document.getElementById(id).innerHTML = end.toLocaleString('en-US');
-                }
-            };
-            window.requestAnimationFrame(step);
+<script>
+        // ===== LOADING SCREEN =====
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loadingParticles = document.getElementById('loadingParticles');
+
+        // Create loading particles
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'loading-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 3 + 's';
+            particle.style.animationDuration = (2 + Math.random() * 2) + 's';
+            loadingParticles.appendChild(particle);
         }
-        
-        // Trigger counters when scrolled into view
-        let statsAnimated = false;
-        
+
+        // Hide loading screen
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+            initHeroAnimations();
+        }, 3500);
+
+        // ===== NAVIGATION =====
+        const nav = document.getElementById('nav');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+        // Show nav after loading
+        setTimeout(() => { nav.classList.add('visible'); }, 4000);
+
+        // Nav scroll effect
         window.addEventListener('scroll', () => {
-            if (statsAnimated) return;
-            
-            const impactSection = document.getElementById('impact');
-            const rect = impactSection.getBoundingClientRect();
-            
-            if (rect.top <= window.innerHeight * 0.7) {
-                statsAnimated = true;
-                animateValue("stat1", 8000, 12847, 2200);
-                animateValue("stat2", 20, 48, 1800);
-                animateValue("stat3", 100, 237, 2000);
-                animateValue("stat4", 15, 41, 1900);
-                animateValue("stat5", 600000, 1200000, 2500);
+            if (window.scrollY > 100) { nav.classList.add('scrolled'); }
+            else { nav.classList.remove('scrolled'); }
+        });
+
+        // Mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            mobileMenuOverlay.classList.toggle('open');
+        });
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+        });
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuOverlay.classList.remove('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+
+        // ===== HERO ANIMATIONS =====
+        function initHeroAnimations() {
+            const heroBadge = document.querySelector('.hero-badge');
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            const heroButtons = document.querySelector('.hero-buttons');
+            const heroScroll = document.querySelector('.hero-scroll');
+
+            gsap.to(heroBadge, { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power3.out' });
+            gsap.to(heroTitle, { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: 'power3.out' });
+            gsap.to(heroSubtitle, { opacity: 1, y: 0, duration: 1, delay: 0.8, ease: 'power3.out' });
+            gsap.to(heroButtons, { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: 'power3.out' });
+            gsap.to(heroScroll, { opacity: 1, duration: 1, delay: 1.8, ease: 'power3.out' });
+        }
+
+        // ===== THREE.JS HERO BACKGROUND =====
+        const heroCanvas = document.getElementById('hero-three-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Create particle system for hero
+        const particleCount = 800;
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 20;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+            const colorChoice = Math.random();
+            if (colorChoice < 0.4) {
+                colors[i * 3] = 0.83; colors[i * 3 + 1] = 0.69; colors[i * 3 + 2] = 0.22;
+            } else if (colorChoice < 0.7) {
+                colors[i * 3] = 0.90; colors[i * 3 + 1] = 0.64; colors[i * 3 + 2] = 0.38;
+            } else {
+                colors[i * 3] = 0.18; colors[i * 3 + 1] = 0.42; colors[i * 3 + 2] = 0.31;
+            }
+        }
+
+        const particleGeometry = new THREE.BufferGeometry();
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.05, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Create Africa shape outline using points
+        const africaPoints = [];
+        const africaShape = [
+            [0, 4], [-1, 3.5], [-2, 3], [-2.5, 2], [-2, 1], [-1.5, 0], [-1, -1], 
+            [-0.5, -2], [0, -3], [0.5, -3.5], [1, -3], [1.5, -2], [2, -1], [2.5, 0],
+            [2, 1], [1.5, 2], [1, 3], [0, 4]
+        ];
+        africaShape.forEach(point => { africaPoints.push(new THREE.Vector3(point[0], point[1], 0)); });
+
+        const africaGeometry = new THREE.BufferGeometry().setFromPoints(africaPoints);
+        const africaMaterial = new THREE.LineBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.3 });
+        const africaLine = new THREE.Line(africaGeometry, africaMaterial);
+        scene.add(africaLine);
+
+        // City nodes
+        const cityPositions = [
+            { x: -1.5, y: 2.5, name: 'Casablanca' },
+            { x: 0, y: 3, name: 'Cairo' },
+            { x: 1.5, y: 1.5, name: 'Nairobi' },
+            { x: -0.5, y: 0.5, name: 'Lagos' },
+            { x: 0.5, y: -1, name: 'Kinshasa' },
+            { x: 1, y: -2.5, name: 'Johannesburg' }
+        ];
+
+        cityPositions.forEach(city => {
+            const cityGeometry = new THREE.SphereGeometry(0.08, 16, 16);
+            const cityMaterial = new THREE.MeshBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.9 });
+            const cityMesh = new THREE.Mesh(cityGeometry, cityMaterial);
+            cityMesh.position.set(city.x, city.y, 0.1);
+            scene.add(cityMesh);
+
+            const glowGeometry = new THREE.SphereGeometry(0.2, 16, 16);
+            const glowMaterial = new THREE.MeshBasicMaterial({ color: 0xD4AF37, transparent: true, opacity: 0.2 });
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+            glowMesh.position.set(city.x, city.y, 0.1);
+            scene.add(glowMesh);
+        });
+
+        camera.position.z = 8;
+
+        // Mouse interaction
+        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Animation loop
+        let animationId;
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+            targetX += (mouseX * 0.5 - targetX) * 0.05;
+            targetY += (mouseY * 0.5 - targetY) * 0.05;
+
+            particles.rotation.y += 0.001;
+            particles.rotation.x += 0.0005;
+            africaLine.rotation.y = targetX * 0.3;
+            africaLine.rotation.x = targetY * 0.2;
+
+            scene.children.forEach(child => {
+                if (child.type === 'Mesh' && child.geometry.type === 'SphereGeometry') {
+                    if (child.geometry.parameters.radius === 0.08) {
+                        child.rotation.y += 0.01;
+                        const scale = 1 + Math.sin(Date.now() * 0.003) * 0.2;
+                        child.scale.set(scale, scale, scale);
+                    }
+                }
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ===== SCROLL REVEAL ANIMATIONS =====
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== ANIMATED COUNTERS =====
+        const counters = document.querySelectorAll('.impact-number');
+        let countersAnimated = false;
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersAnimated) {
+                    countersAnimated = true;
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2500;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.textContent = Math.floor(current).toLocaleString();
+                                requestAnimationFrame(updateCounter);
+                            } else { counter.textContent = target.toLocaleString(); }
+                        };
+                        updateCounter();
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelector('.impact-section')?.querySelectorAll('.impact-number').forEach(c => counterObserver.observe(c.parentElement));
+
+        // ===== COUNTDOWN TIMERS =====
+        function updateCountdowns() {
+            document.querySelectorAll('.event-countdown').forEach(countdown => {
+                const targetDate = new Date(countdown.getAttribute('data-date'));
+                const now = new Date();
+                const diff = targetDate - now;
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    countdown.querySelector('[data-unit="days"]').textContent = String(days).padStart(2, '0');
+                    countdown.querySelector('[data-unit="hours"]').textContent = String(hours).padStart(2, '0');
+                    countdown.querySelector('[data-unit="minutes"]').textContent = String(minutes).padStart(2, '0');
+                    countdown.querySelector('[data-unit="seconds"]').textContent = String(seconds).padStart(2, '0');
+                }
+            });
+        }
+        setInterval(updateCountdowns, 1000);
+        updateCountdowns();
+
+        // ===== PARALLAX EFFECT =====
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent && scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.8;
             }
         });
-        
-        // Simple particle background in hero
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 80; i++) {
+
+        // ===== GSAP SCROLL TRIGGER ANIMATIONS =====
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.impact-card', { scrollTrigger: { trigger: '.impact-grid', start: 'top 80%' }, y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' });
+            gsap.from('.focus-card', { scrollTrigger: { trigger: '.focus-grid', start: 'top 80%' }, y: 80, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' });
+            gsap.from('.initiative-card', { scrollTrigger: { trigger: '.initiatives-grid', start: 'top 80%' }, y: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
+            gsap.from('.voice-card', { scrollTrigger: { trigger: '.voices-grid', start: 'top 80%' }, y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out' });
+            gsap.from('.event-card', { scrollTrigger: { trigger: '.events-timeline', start: 'top 80%' }, x: -60, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out' });
+            gsap.from('.leader-card', { scrollTrigger: { trigger: '.leadership-grid', start: 'top 80%' }, y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out' });
+            gsap.from('.news-card', { scrollTrigger: { trigger: '.news-grid', start: 'top 80%' }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' });
+        }
+
+        // ===== FLOATING PARTICLES BACKGROUND =====
+        function createFloatingParticles() {
+            const container = document.body;
+            for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'absolute w-1 h-1 bg-amber-400 rounded-full opacity-30';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animation = `float ${8 + Math.random() * 12}s linear infinite`;
-                particle.style.animationDelay = `-${Math.random() * 15}s`;
+                particle.style.cssText = `
+                    position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+                    width: ${Math.random() * 4 + 1}px; height: ${Math.random() * 4 + 1}px;
+                    background: ${Math.random() > 0.5 ? 'rgba(212,175,55,0.3)' : 'rgba(45,106,79,0.2)'};
+                    left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;
+                    animation: particleFloat ${15 + Math.random() * 20}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 10}s;
+                `;
                 container.appendChild(particle);
             }
         }
-        
-        // Add keyframe for floating
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes float {
-                0% { transform: translateY(0) scale(1); }
-                50% { transform: translateY(-120px) scale(0.6); }
-                100% { transform: translateY(-300px) scale(0.2); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Join movement alert (demo)
-        function joinMovement() {
-            const name = prompt("Welcome to AFF! What's your first name?");
-            if (name) {
-                alert(`Thank you, ${name}! 🎉\n\nYou've taken the first step toward shaping Africa's future.\n\nA real membership form would appear here.`);
-            } else {
-                alert("The movement awaits you. Join us today!");
-            }
-        }
-        
-        // Initialize
-        window.onload = function() {
-            createParticles();
-            
-            // Keyboard shortcut hint
-            console.log('%cAfrican Future Forum - Cinematic Demo Ready ✨\nPress J to join the movement', 'color:#f5c462; font-family:monospace');
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key.toLowerCase() === 'j') joinMovement();
-            });
-        };
+        createFloatingParticles();
     </script>
 </body>
-  </html>
+    </html>
