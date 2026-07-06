@@ -1,745 +1,459 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parabolic Children Foundation - Uganda</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        'soft-cream': '#FFF8F0',
-        'warm-sand': '#F5E6D3',
-        'gentle-teal': '#5B9A8B',
-        'deep-teal': '#3D7A6B',
-        'calm-sage': '#8FB9A8',
-        'warm-peach': '#F4A261',
-        'soft-rose': '#E9C46A',
-        'gentle-lavender': '#B8C5D6',
-        'deep-charcoal': '#2D3436',
-        'warm-white': '#FFFCF8',
-      },
-      fontFamily: {
-        'nunito': ['Nunito', 'sans-serif'],
-        'playfair': ['Playfair Display', 'serif'],
-      },
-      boxShadow: {
-        'soft': '0 10px 40px -10px rgba(91, 154, 139, 0.15)',
-        'soft-lg': '0 20px 60px -15px rgba(91, 154, 139, 0.2)',
-      }
-    }
-  }
-}
-</script>
-<style>
-body { font-family: 'Nunito', sans-serif; }
-.glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.6); }
-.hero-gradient { background: linear-gradient(135deg, #5B9A8B 0%, #8FB9A8 50%, #F5E6D3 100%); }
-.blob-shape { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-.blob-shape-2 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-.wave-divider { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; }
-.wave-divider svg { position: relative; display: block; width: calc(100% + 1.3px); height: 120px; }
-.floating { animation: float 6s ease-in-out infinite; }
-@keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
-.scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5,0,0,1); }
-.scroll-reveal.active { opacity: 1; transform: translateY(0); }
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.testimonial-card { transition: all 0.4s ease; }
-.testimonial-card:hover { transform: translateY(-8px); }
-.payment-card { transition: all 0.3s ease; }
-.payment-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px -10px rgba(91,154,139,0.25); }
-.team-card:hover .team-social { opacity: 1; transform: translateY(0); }
-.team-social { opacity: 0; transform: translateY(20px); transition: all 0.4s ease; }
-.service-icon { transition: all 0.4s ease; }
-.service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
-.nav-blur { backdrop-filter: blur(16px); background: rgba(255,252,248,0.9); }
-.mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
-.mobile-menu.open { transform: translateX(0); }
-.image-placeholder { background: linear-gradient(135deg, #8FB9A8 0%, #5B9A8B 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>African Future Forum | Shaping Africa's Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        :root {
+            --gold: #f5c462;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 50% 30%, rgba(245, 196, 98, 0.25) 0%, transparent 60%),
+                        linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+        }
+
+        .africa-glow {
+            animation: africaPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes africaPulse {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 1; }
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(to right, #f5c462, #ff8a65);
+            transition: width 0.4s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(245 196 98 / 0.25);
+        }
+    </style>
 </head>
-<body class="bg-soft-cream text-deep-charcoal overflow-x-hidden">
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-xl font-bold">🇦🇫</div>
+                <div>
+                    <span class="heading-font text-2xl font-bold tracking-tighter">AFF</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#impact" class="nav-link">Impact</a>
+                <a href="#focus" class="nav-link">Focus Areas</a>
+                <a href="#initiatives" class="nav-link">Initiatives</a>
+                <a href="#community" class="nav-link">Community</a>
+                <a href="#events" class="nav-link">Events</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="joinMovement()" 
+                        class="px-6 py-3 bg-white text-black font-semibold rounded-2xl hover:bg-amber-400 hover:text-black transition-all flex items-center gap-2">
+                    <i class="fas fa-arrow-right"></i>
+                    JOIN NOW
+                </button>
+            </div>
+        </div>
+    </nav>
 
-<!-- Navigation -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="w-12 h-12 bg-gentle-teal rounded-2xl flex items-center justify-center shadow-soft">
-<i class="fas fa-hands-holding-child text-white text-xl"></i>
-</div>
-<div>
-<h1 class="font-playfair font-bold text-xl text-deep-charcoal leading-tight">Parabolic</h1>
-<p class="text-xs text-gentle-teal font-semibold tracking-wider">Children Foundation</p>
-</div>
-</div>
-<div class="hidden md:flex items-center space-x-8">
-<a href="#about" class="text-deep-charcoal/70 hover:text-gentle-teal font-semibold transition-colors">About</a>
-<a href="#services" class="text-deep-charcoal/70 hover:text-gentle-teal font-semibold transition-colors">Services</a>
-<a href="#team" class="text-deep-charcoal/70 hover:text-gentle-teal font-semibold transition-colors">Team</a>
-<a href="#gallery" class="text-deep-charcoal/70 hover:text-gentle-teal font-semibold transition-colors">Gallery</a>
-<a href="#testimonials" class="text-deep-charcoal/70 hover:text-gentle-teal font-semibold transition-colors">Stories</a>
-<a href="#donate" class="bg-gentle-teal text-white px-6 py-2.5 rounded-full font-bold shadow-soft hover:bg-deep-teal transition-all hover:shadow-soft-lg">Donate Now</a>
-</div>
-<button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-deep-charcoal">
-<i class="fas fa-bars text-xl"></i>
-</button>
-</div>
-</div>
-</nav>
+    <!-- HERO -->
+    <section id="hero" class="hero-bg min-h-screen flex items-center relative">
+        <div class="absolute inset-0 bg-[radial-gradient(#ffffff_0.8px,transparent_1px)] [background-size:50px_50px] opacity-5"></div>
+        
+        <!-- Simulated 3D Africa -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] opacity-30 pointer-events-none">
+            <div id="africa-map" 
+                 class="w-full h-full bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Africa_%28orthographic_projection%29.svg/800px-Africa_%28orthographic_projection%29.svg.png')] 
+                        bg-contain bg-center africa-glow filter drop-shadow-2xl"></div>
+        </div>
 
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-warm-white">
-<div class="p-6">
-<div class="flex justify-between items-center mb-12">
-<div class="flex items-center space-x-3">
-<div class="w-10 h-10 bg-gentle-teal rounded-xl flex items-center justify-center">
-<i class="fas fa-hands-holding-child text-white text-lg"></i>
-</div>
-<span class="font-playfair font-bold text-lg">Parabolic</span>
-</div>
-<button id="close-menu" class="w-10 h-10 flex items-center justify-center">
-<i class="fas fa-times text-xl text-deep-charcoal"></i>
-</button>
-</div>
-<div class="flex flex-col space-y-6">
-<a href="#about" class="text-2xl font-semibold text-deep-charcoal mobile-link">About Us</a>
-<a href="#services" class="text-2xl font-semibold text-deep-charcoal mobile-link">Our Services</a>
-<a href="#team" class="text-2xl font-semibold text-deep-charcoal mobile-link">Our Team</a>
-<a href="#gallery" class="text-2xl font-semibold text-deep-charcoal mobile-link">Gallery</a>
-<a href="#testimonials" class="text-2xl font-semibold text-deep-charcoal mobile-link">Stories</a>
-<a href="#donate" class="text-2xl font-semibold text-gentle-teal mobile-link">Donate Now</a>
-</div>
-</div>
-</div>
+        <div class="max-w-screen-2xl mx-auto px-8 pt-24 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-3xl border border-amber-400/30 bg-amber-400/10 mb-8">
+                    <div class="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="uppercase text-xs tracking-[2px] font-mono">The Voice of Africa's Next Generation</span>
+                </div>
+                
+                <h1 class="heading-font text-7xl md:text-8xl leading-none font-bold tracking-tighter mb-6">
+                    EMPOWERING<br>AFRICA'S<br><span class="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">FUTURE</span>
+                </h1>
+                
+                <p class="text-2xl text-white/80 max-w-lg mb-12">
+                    A youth-led Pan-African movement dedicated to leadership, innovation, and collective action.
+                </p>
+                
+                <div class="flex flex-wrap gap-5">
+                    <button onclick="joinMovement()" 
+                            class="px-10 py-6 bg-gradient-to-r from-amber-400 to-orange-500 text-black font-semibold text-xl rounded-3xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 shadow-2xl shadow-amber-500/50">
+                        JOIN THE MOVEMENT
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="document.getElementById('impact').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-10 py-6 border border-white/40 hover:border-white/80 rounded-3xl text-lg transition-all backdrop-blur-md">
+                        SEE OUR IMPACT
+                    </button>
+                </div>
+                
+                <div class="mt-16 flex items-center gap-8 text-sm">
+                    <div class="flex -space-x-4">
+                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
+                            <img src="https://picsum.photos/id/64/200/200" alt="" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
+                            <img src="https://picsum.photos/id/201/200/200" alt="" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-9 h-9 bg-zinc-700 border-2 border-black rounded-2xl overflow-hidden">
+                            <img src="https://picsum.photos/id/238/200/200" alt="" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-emerald-400 font-medium">12,847+ young leaders united</div>
+                        <div class="text-white/60 text-sm">Across 48 countries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Hero Section -->
-<section class="relative min-h-screen flex items-center overflow-hidden pt-20">
-<div class="absolute inset-0 hero-gradient opacity-20"></div>
-<div class="absolute top-20 right-10 w-96 h-96 bg-gentle-teal/10 blob-shape floating"></div>
-<div class="absolute bottom-20 left-10 w-72 h-72 bg-warm-peach/10 blob-shape-2 floating" style="animation-delay: 2s;"></div>
-<div class="absolute top-1/2 left-1/3 w-64 h-64 bg-calm-sage/10 rounded-full floating" style="animation-delay: 4s;"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="grid lg:grid-cols-2 gap-12 items-center">
-<div class="scroll-reveal">
-<div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-soft mb-6">
-<span class="w-2 h-2 bg-warm-peach rounded-full animate-pulse"></span>
-<span class="text-sm font-semibold text-deep-charcoal/80">Serving Children in Uganda Since 2015</span>
-</div>
-<h1 class="font-playfair text-5xl md:text-6xl lg:text-7xl font-bold text-deep-charcoal leading-tight mb-6">
-Every Child<br><span class="text-gentle-teal">Deserves</span><br>a Future
-</h1>
-<p class="text-lg text-deep-charcoal/70 mb-8 max-w-lg leading-relaxed">
-We provide shelter, education, healthcare, and love to vulnerable children across Uganda. Join us in creating lasting change.
-</p>
-<div class="flex flex-wrap gap-4">
-<a href="#donate" class="bg-gentle-teal text-white px-8 py-4 rounded-full font-bold text-lg shadow-soft hover:bg-deep-teal transition-all hover:shadow-soft-lg inline-flex items-center space-x-2">
-<i class="fas fa-heart"></i><span>Make a Donation</span>
-</a>
-<a href="#about" class="bg-white text-gentle-teal px-8 py-4 rounded-full font-bold text-lg shadow-soft hover:shadow-soft-lg transition-all inline-flex items-center space-x-2 border border-gentle-teal/20">
-<i class="fas fa-play-circle"></i><span>Learn More</span>
-</a>
-</div>
-<div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-gentle-teal/10">
-<div><p class="text-3xl font-bold text-gentle-teal">1,250+</p><p class="text-sm text-deep-charcoal/60 font-semibold">Children Helped</p></div>
-<div><p class="text-3xl font-bold text-warm-peach">48</p><p class="text-sm text-deep-charcoal/60 font-semibold">Communities</p></div>
-<div><p class="text-3xl font-bold text-calm-sage">9+</p><p class="text-sm text-deep-charcoal/60 font-semibold">Years Active</p></div>
-</div>
-</div>
-<div class="relative scroll-reveal" style="transition-delay: 0.2s;">
-<div class="relative">
-<div class="absolute -inset-4 bg-gradient-to-br from-gentle-teal/20 to-warm-peach/20 rounded-[3rem] blur-2xl"></div>
-<div class="relative bg-white rounded-[2rem] shadow-soft-lg overflow-hidden">
-<div class="image-placeholder h-96 md:h-[500px]">
-<div class="text-center">
-<i class="fas fa-hands-holding-child text-6xl mb-4 opacity-80"></i>
-<p class="text-lg font-semibold opacity-90">Children at Parabolic Foundation</p>
-<p class="text-sm opacity-70 mt-2">Kampala, Uganda</p>
-</div>
-</div>
-</div>
-<div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-soft-lg p-4 flex items-center space-x-3">
-<div class="w-12 h-12 bg-warm-peach/20 rounded-xl flex items-center justify-center">
-<i class="fas fa-star text-warm-peach text-xl"></i>
-</div>
-<div><p class="font-bold text-deep-charcoal">4.9/5</p><p class="text-xs text-deep-charcoal/60">Community Rating</p></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="wave-divider">
-<svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-<path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#FFF8F0"></path>
-</svg>
-</div>
-</section>
+        <div class="absolute bottom-12 left-1/2 flex flex-col items-center">
+            <div class="text-xs tracking-widest mb-3 opacity-60">SCROLL TO BEGIN</div>
+            <div class="w-6 h-10 border border-white/40 rounded-full flex items-center justify-center">
+                <div class="w-1 h-3 bg-white rounded-full animate-bounce"></div>
+            </div>
+        </div>
 
-<!-- About Section -->
-<section id="about" class="py-20 bg-soft-cream">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid lg:grid-cols-2 gap-16 items-center">
-<div class="relative scroll-reveal">
-<div class="grid grid-cols-2 gap-4">
-<div class="space-y-4 mt-8">
-<div class="image-placeholder rounded-2xl h-48 shadow-soft"><i class="fas fa-school text-4xl"></i></div>
-<div class="image-placeholder rounded-2xl h-64 shadow-soft" style="background: linear-gradient(135deg, #F4A261 0%, #E9C46A 100%);"><i class="fas fa-apple-alt text-4xl"></i></div>
-</div>
-<div class="space-y-4">
-<div class="image-placeholder rounded-2xl h-64 shadow-soft" style="background: linear-gradient(135deg, #8FB9A8 0%, #5B9A8B 100%);"><i class="fas fa-heart text-4xl"></i></div>
-<div class="image-placeholder rounded-2xl h-48 shadow-soft"><i class="fas fa-book-reader text-4xl"></i></div>
-</div>
-</div>
-<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-soft-lg p-6 text-center">
-<p class="text-4xl font-bold text-gentle-teal">9+</p>
-<p class="text-sm font-semibold text-deep-charcoal/70">Years of<br>Impact</p>
-</div>
-</div>
-<div class="scroll-reveal" style="transition-delay: 0.2s;">
-<span class="inline-block bg-gentle-teal/10 text-gentle-teal px-4 py-1.5 rounded-full text-sm font-bold mb-4">About Us</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-6">Building Brighter<br>Tomorrows for<br>Every Child</h2>
-<p class="text-deep-charcoal/70 text-lg leading-relaxed mb-6">Parabolic Children Foundation is a registered non-profit organization in Uganda dedicated to transforming the lives of vulnerable children. We believe every child deserves access to basic necessities, quality education, and a loving environment.</p>
-<p class="text-deep-charcoal/70 leading-relaxed mb-8">Founded in 2015 in Kampala, we have grown from a small community initiative to a recognized foundation serving over 1,250 children across 48 communities. Our holistic approach addresses education, health, nutrition, and emotional wellbeing.</p>
-<div class="grid grid-cols-2 gap-4 mb-8">
-<div class="flex items-start space-x-3">
-<div class="w-10 h-10 bg-gentle-teal/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-check text-gentle-teal"></i></div>
-<div><p class="font-bold text-deep-charcoal">Registered NGO</p><p class="text-sm text-deep-charcoal/60">Government certified</p></div>
-</div>
-<div class="flex items-start space-x-3">
-<div class="w-10 h-10 bg-warm-peach/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-check text-warm-peach"></i></div>
-<div><p class="font-bold text-deep-charcoal">Transparent</p><p class="text-sm text-deep-charcoal/60">100% accountability</p></div>
-</div>
-<div class="flex items-start space-x-3">
-<div class="w-10 h-10 bg-calm-sage/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-check text-calm-sage"></i></div>
-<div><p class="font-bold text-deep-charcoal">Local Team</p><p class="text-sm text-deep-charcoal/60">Community driven</p></div>
-</div>
-<div class="flex items-start space-x-3">
-<div class="w-10 h-10 bg-soft-rose/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-check text-soft-rose"></i></div>
-<div><p class="font-bold text-deep-charcoal">Verified</p><p class="text-sm text-deep-charcoal/60">Annual audits</p></div>
-</div>
-</div>
-<a href="#services" class="inline-flex items-center space-x-2 text-gentle-teal font-bold hover:text-deep-teal transition-colors"><span>Explore Our Services</span><i class="fas fa-arrow-right"></i></a>
-</div>
-</div>
-</div>
-</section>
+        <!-- Floating particles -->
+        <div class="absolute inset-0 pointer-events-none" id="particles"></div>
+    </section>
 
-<!-- Services Section -->
-<section id="services" class="py-20 bg-warm-white relative overflow-hidden">
-<div class="absolute top-0 right-0 w-96 h-96 bg-gentle-teal/5 rounded-full blur-3xl"></div>
-<div class="absolute bottom-0 left-0 w-96 h-96 bg-warm-peach/5 rounded-full blur-3xl"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center mb-16 scroll-reveal">
-<span class="inline-block bg-warm-peach/10 text-warm-peach px-4 py-1.5 rounded-full text-sm font-bold mb-4">What We Do</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Our Core Services</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Comprehensive support systems designed to nurture, protect, and empower every child in our care.</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal">
-<div class="service-icon w-16 h-16 bg-gentle-teal/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-graduation-cap text-gentle-teal text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Education Support</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Providing school fees, uniforms, books, and tutoring to ensure every child receives quality education from primary through secondary school.</p>
-<div class="flex items-center text-gentle-teal font-semibold text-sm"><span>850+ children in school</span></div>
-</div>
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal" style="transition-delay: 0.1s;">
-<div class="service-icon w-16 h-16 bg-warm-peach/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-heart-pulse text-warm-peach text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Healthcare & Nutrition</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Regular medical checkups, vaccination programs, and daily nutritious meals to keep children healthy and strong.</p>
-<div class="flex items-center text-warm-peach font-semibold text-sm"><span>3 meals daily provided</span></div>
-</div>
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal" style="transition-delay: 0.2s;">
-<div class="service-icon w-16 h-16 bg-calm-sage/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-home text-calm-sage text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Safe Shelter</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Operating children's homes and foster care programs that provide safe, loving environments for orphans and vulnerable children.</p>
-<div class="flex items-center text-calm-sage font-semibold text-sm"><span>4 residential homes</span></div>
-</div>
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal">
-<div class="service-icon w-16 h-16 bg-soft-rose/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-palette text-soft-rose text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Arts & Recreation</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Music, dance, sports, and art programs that help children express themselves, build confidence, and discover their talents.</p>
-<div class="flex items-center text-soft-rose font-semibold text-sm"><span>12 activity programs</span></div>
-</div>
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal" style="transition-delay: 0.1s;">
-<div class="service-icon w-16 h-16 bg-gentle-lavender/20 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-hands-holding-circle text-gentle-lavender text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Family Reunification</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Working to reunite children with their families when possible, and providing ongoing support to ensure stability and care.</p>
-<div class="flex items-center text-gentle-lavender font-semibold text-sm"><span>200+ families reunited</span></div>
-</div>
-<div class="service-card glass-card rounded-3xl p-8 shadow-soft hover:shadow-soft-lg transition-all scroll-reveal" style="transition-delay: 0.2s;">
-<div class="service-icon w-16 h-16 bg-gentle-teal/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-seedling text-gentle-teal text-2xl"></i></div>
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-3">Vocational Training</h3>
-<p class="text-deep-charcoal/60 leading-relaxed mb-4">Skills training in tailoring, carpentry, agriculture, and IT to prepare older children for independent, productive futures.</p>
-<div class="flex items-center text-gentle-teal font-semibold text-sm"><span>150 youth trained yearly</span></div>
-</div>
-</div>
-</div>
-</section>
+    <!-- IMPACT STATS -->
+    <section id="impact" class="py-28 border-t border-white/10 bg-black">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="text-center mb-16">
+                <span class="uppercase text-amber-400 tracking-widest text-sm font-medium">Collective Impact</span>
+                <h2 class="heading-font text-6xl font-bold tracking-tighter mt-3">Numbers That Matter</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="glass rounded-3xl p-8 text-center card-hover">
+                    <div id="stat1" class="stat-number text-6xl font-bold text-amber-400 mb-2">12847</div>
+                    <div class="text-white/70">Members</div>
+                </div>
+                <div class="glass rounded-3xl p-8 text-center card-hover">
+                    <div id="stat2" class="stat-number text-6xl font-bold text-amber-400 mb-2">48</div>
+                    <div class="text-white/70">Countries</div>
+                </div>
+                <div class="glass rounded-3xl p-8 text-center card-hover">
+                    <div id="stat3" class="stat-number text-6xl font-bold text-amber-400 mb-2">237</div>
+                    <div class="text-white/70">Projects</div>
+                </div>
+                <div class="glass rounded-3xl p-8 text-center card-hover">
+                    <div id="stat4" class="stat-number text-6xl font-bold text-amber-400 mb-2">41</div>
+                    <div class="text-white/70">Summits</div>
+                </div>
+                <div class="glass rounded-3xl p-8 text-center card-hover">
+                    <div id="stat5" class="stat-number text-6xl font-bold text-amber-400 mb-2">1200000</div>
+                    <div class="text-white/70">Lives Touched</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Team Section -->
-<section id="team" class="py-20 bg-soft-cream">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16 scroll-reveal">
-<span class="inline-block bg-calm-sage/10 text-calm-sage px-4 py-1.5 rounded-full text-sm font-bold mb-4">Our People</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Meet the Team</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Dedicated professionals and volunteers working tirelessly to make a difference in children's lives.</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-<div class="team-card bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all scroll-reveal group">
-<div class="relative">
-<div class="image-placeholder h-64" style="background: linear-gradient(135deg, #5B9A8B 0%, #3D7A6B 100%);"><i class="fas fa-user text-5xl"></i></div>
-<div class="team-social absolute bottom-4 left-0 right-0 flex justify-center space-x-3">
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-gentle-teal hover:bg-gentle-teal hover:text-white transition-all shadow-soft"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-gentle-teal hover:bg-gentle-teal hover:text-white transition-all shadow-soft"><i class="fab fa-twitter"></i></a>
-</div>
-</div>
-<div class="p-6 text-center">
-<h3 class="font-playfair text-lg font-bold text-deep-charcoal">Sarah Nakato</h3>
-<p class="text-gentle-teal font-semibold text-sm mb-2">Executive Director</p>
-<p class="text-deep-charcoal/60 text-sm">Passionate child rights advocate with 15 years of experience in social work.</p>
-</div>
-</div>
-<div class="team-card bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all scroll-reveal group" style="transition-delay: 0.1s;">
-<div class="relative">
-<div class="image-placeholder h-64" style="background: linear-gradient(135deg, #F4A261 0%, #E9C46A 100%);"><i class="fas fa-user text-5xl"></i></div>
-<div class="team-social absolute bottom-4 left-0 right-0 flex justify-center space-x-3">
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-warm-peach hover:bg-warm-peach hover:text-white transition-all shadow-soft"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-warm-peach hover:bg-warm-peach hover:text-white transition-all shadow-soft"><i class="fab fa-twitter"></i></a>
-</div>
-</div>
-<div class="p-6 text-center">
-<h3 class="font-playfair text-lg font-bold text-deep-charcoal">David Ochieng</h3>
-<p class="text-warm-peach font-semibold text-sm mb-2">Programs Manager</p>
-<p class="text-deep-charcoal/60 text-sm">Oversees all outreach programs ensuring quality service delivery to communities.</p>
-</div>
-</div>
-<div class="team-card bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all scroll-reveal group" style="transition-delay: 0.2s;">
-<div class="relative">
-<div class="image-placeholder h-64" style="background: linear-gradient(135deg, #8FB9A8 0%, #5B9A8B 100%);"><i class="fas fa-user text-5xl"></i></div>
-<div class="team-social absolute bottom-4 left-0 right-0 flex justify-center space-x-3">
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-calm-sage hover:bg-calm-sage hover:text-white transition-all shadow-soft"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-calm-sage hover:bg-calm-sage hover:text-white transition-all shadow-soft"><i class="fab fa-twitter"></i></a>
-</div>
-</div>
-<div class="p-6 text-center">
-<h3 class="font-playfair text-lg font-bold text-deep-charcoal">Grace Auma</h3>
-<p class="text-calm-sage font-semibold text-sm mb-2">Child Welfare Officer</p>
-<p class="text-deep-charcoal/60 text-sm">Certified social worker specializing in child protection and family support.</p>
-</div>
-</div>
-<div class="team-card bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-soft-lg transition-all scroll-reveal group" style="transition-delay: 0.3s;">
-<div class="relative">
-<div class="image-placeholder h-64" style="background: linear-gradient(135deg, #B8C5D6 0%, #8FB9A8 100%);"><i class="fas fa-user text-5xl"></i></div>
-<div class="team-social absolute bottom-4 left-0 right-0 flex justify-center space-x-3">
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-gentle-lavender hover:bg-gentle-lavender hover:text-white transition-all shadow-soft"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" class="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center text-gentle-lavender hover:bg-gentle-lavender hover:text-white transition-all shadow-soft"><i class="fab fa-twitter"></i></a>
-</div>
-</div>
-<div class="p-6 text-center">
-<h3 class="font-playfair text-lg font-bold text-deep-charcoal">Peter Okello</h3>
-<p class="text-gentle-lavender font-semibold text-sm mb-2">Finance Director</p>
-<p class="text-deep-charcoal/60 text-sm">Ensures transparent financial management and accountability in all operations.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- ABOUT -->
+    <section id="about" class="py-28 bg-gradient-to-b from-black to-[#111]">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="heading-font text-6xl font-bold tracking-tighter leading-none mb-8">
+                    We are the generation<br>that will transform Africa
+                </h2>
+                <div class="prose prose-invert text-lg text-white/80">
+                    <p>The African Future Forum is a youth-led Pan-African movement. We believe young Africans must lead the conversation on our continent's destiny.</p>
+                    <p>Through dialogue, innovation, entrepreneurship, policy advocacy, and bold collective action, we are building the Africa we want to see.</p>
+                </div>
+                <div class="mt-10 flex items-center gap-4">
+                    <div class="h-px w-16 bg-amber-400"></div>
+                    <span class="uppercase text-sm tracking-widest">Leadership • Innovation • Unity</span>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="glass rounded-3xl p-2">
+                    <img src="https://picsum.photos/id/1015/1200/800" alt="African youth leaders" 
+                         class="rounded-3xl w-full aspect-video object-cover">
+                </div>
+                <div class="absolute -bottom-6 -right-6 glass p-6 rounded-3xl max-w-[240px]">
+                    <div class="text-amber-400 text-5xl font-light">“</div>
+                    <p class="italic text-white/90">The future is not something we enter. It is something we create.</p>
+                    <div class="mt-6 text-sm">— AFF Youth Ambassador, Kenya</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Gallery Section -->
-<section id="gallery" class="py-20 bg-warm-white">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-16 scroll-reveal">
-<span class="inline-block bg-gentle-teal/10 text-gentle-teal px-4 py-1.5 rounded-full text-sm font-bold mb-4">Moments</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Our Gallery</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Capturing the joy, growth, and hope we share with the children every day.</p>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal col-span-2 row-span-2">
-<div class="image-placeholder h-full min-h-[300px]" style="background: linear-gradient(135deg, #5B9A8B 0%, #8FB9A8 100%);"><i class="fas fa-camera text-5xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-<div><p class="text-white font-bold text-lg">School Opening Day</p><p class="text-white/70 text-sm">Kampala, 2024</p></div>
-</div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #F4A261 0%, #E9C46A 100%);"><i class="fas fa-utensils text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Nutrition Program</p></div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #8FB9A8 0%, #B8C5D6 100%);"><i class="fas fa-paint-brush text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Art Class</p></div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #E9C46A 0%, #F4A261 100%);"><i class="fas fa-futbol text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Sports Day</p></div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #5B9A8B 0%, #3D7A6B 100%);"><i class="fas fa-book text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Library Time</p></div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal col-span-2">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #B8C5D6 0%, #8FB9A8 100%);"><i class="fas fa-users text-4xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-6">
-<div><p class="text-white font-bold text-lg">Community Outreach</p><p class="text-white/70 text-sm">Northern Uganda, 2024</p></div>
-</div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #F5E6D3 0%, #E9C46A 100%);"><i class="fas fa-music text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Music Program</p></div>
-</div>
-<div class="gallery-item relative rounded-2xl overflow-hidden shadow-soft cursor-pointer group scroll-reveal">
-<div class="image-placeholder h-48" style="background: linear-gradient(135deg, #3D7A6B 0%, #5B9A8B 100%);"><i class="fas fa-hand-holding-heart text-3xl"></i></div>
-<div class="gallery-overlay absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4"><p class="text-white font-bold text-sm">Volunteer Day</p></div>
-</div>
-</div>
-</div>
-</section>
+    <!-- FOCUS AREAS -->
+    <section id="focus" class="py-28 bg-black">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-6xl font-bold tracking-tighter">Our Focus Areas</h2>
+                <p class="text-white/60 mt-4 max-w-md mx-auto">Where young African minds are creating solutions today</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div onclick="alert('Education focus area - In a real site this would expand')" 
+                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
+                    <div class="text-4xl mb-6">📚</div>
+                    <h3 class="text-2xl font-semibold mb-3">Education &amp; Skills</h3>
+                    <p class="text-white/70 text-sm leading-relaxed">Revolutionizing access to world-class learning and future-ready skills.</p>
+                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div onclick="alert('Technology focus area')" 
+                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
+                    <div class="text-4xl mb-6">💻</div>
+                    <h3 class="text-2xl font-semibold mb-3">Technology &amp; Innovation</h3>
+                    <p class="text-white/70 text-sm leading-relaxed">Building African solutions for African challenges using frontier tech.</p>
+                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div onclick="alert('Entrepreneurship focus area')" 
+                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
+                    <div class="text-4xl mb-6">🚀</div>
+                    <h3 class="text-2xl font-semibold mb-3">Entrepreneurship</h3>
+                    <p class="text-white/70 text-sm leading-relaxed">Supporting the next generation of job creators and ecosystem builders.</p>
+                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
+                </div>
+                
+                <!-- Card 4 -->
+                <div onclick="alert('Climate focus area')" 
+                     class="glass rounded-3xl p-8 card-hover cursor-pointer group">
+                    <div class="text-4xl mb-6">🌍</div>
+                    <h3 class="text-2xl font-semibold mb-3">Climate Action</h3>
+                    <p class="text-white/70 text-sm leading-relaxed">Leading just and sustainable solutions for our continent.</p>
+                    <div class="mt-8 text-amber-400 text-sm font-medium group-hover:translate-x-2 transition">Learn more →</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Testimonials Section -->
-<section id="testimonials" class="py-20 bg-soft-cream relative overflow-hidden">
-<div class="absolute top-20 left-10 w-64 h-64 bg-warm-peach/10 rounded-full blur-3xl"></div>
-<div class="absolute bottom-20 right-10 w-64 h-64 bg-gentle-teal/10 rounded-full blur-3xl"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center mb-16 scroll-reveal">
-<span class="inline-block bg-warm-peach/10 text-warm-peach px-4 py-1.5 rounded-full text-sm font-bold mb-4">Testimonials</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Stories of Hope</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Hear from the children, families, and supporters who have been touched by our work.</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"Parabolic Foundation changed my life. They helped me go back to school after I had dropped out. Now I'm in senior four and dreaming of becoming a doctor."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-gentle-teal/20 rounded-full flex items-center justify-center"><i class="fas fa-user text-gentle-teal"></i></div>
-<div><p class="font-bold text-deep-charcoal">Mary A., 16</p><p class="text-sm text-deep-charcoal/60">Student, Kampala</p></div>
-</div>
-</div>
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal" style="transition-delay: 0.1s;">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"As a single mother of three, I was struggling. The foundation not only helped my children with school fees but also trained me in tailoring. Now I can support my family."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-warm-peach/20 rounded-full flex items-center justify-center"><i class="fas fa-user text-warm-peach"></i></div>
-<div><p class="font-bold text-deep-charcoal">Jane Nalwoga</p><p class="text-sm text-deep-charcoal/60">Parent, Jinja</p></div>
-</div>
-</div>
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal" style="transition-delay: 0.2s;">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"I've been donating monthly for 3 years. The transparency reports and personal updates from the children make me confident that every shilling makes a real difference."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-calm-sage/20 rounded-full flex items-center justify-center"><i class="fas fa-user text-calm-sage"></i></div>
-<div><p class="font-bold text-deep-charcoal">Robert M.</p><p class="text-sm text-deep-charcoal/60">Monthly Donor, UK</p></div>
-</div>
-</div>
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"The vocational training program gave me skills in carpentry. I now have a small workshop and employ two other young people from my community."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-soft-rose/20 rounded-full flex items-center justify-center"><i class="fas fa-user text-soft-rose"></i></div>
-<div><p class="font-bold text-deep-charcoal">John Bosco</p><p class="text-sm text-deep-charcoal/60">Graduate, Gulu</p></div>
-</div>
-</div>
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal" style="transition-delay: 0.1s;">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"Volunteering here has been the most rewarding experience. The children's resilience and joy inspire me every single day. The team is professional and caring."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-gentle-lavender/30 rounded-full flex items-center justify-center"><i class="fas fa-user text-gentle-lavender"></i></div>
-<div><p class="font-bold text-deep-charcoal">Dr. Emily K.</p><p class="text-sm text-deep-charcoal/60">Medical Volunteer</p></div>
-</div>
-</div>
-<div class="testimonial-card bg-white rounded-3xl p-8 shadow-soft scroll-reveal" style="transition-delay: 0.2s;">
-<div class="flex items-center space-x-1 mb-4">
-<i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i><i class="fas fa-star text-warm-peach"></i>
-</div>
-<p class="text-deep-charcoal/70 leading-relaxed mb-6 italic">"The family reunification program brought my sister's children back to us after they were separated. The ongoing support ensures they never go through that again."</p>
-<div class="flex items-center space-x-4">
-<div class="w-12 h-12 bg-gentle-teal/20 rounded-full flex items-center justify-center"><i class="fas fa-user text-gentle-teal"></i></div>
-<div><p class="font-bold text-deep-charcoal">Grace Otim</p><p class="text-sm text-deep-charcoal/60">Family Member, Lira</p></div>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- COMMUNITY VOICES -->
+    <section id="community" class="py-28 bg-gradient-to-b from-black to-[#0a0a0a]">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="heading-font text-5xl font-bold tracking-tighter text-center mb-16">Voices of the Movement</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass rounded-3xl p-8">
+                    <p class="italic text-lg">"AFF gave me the platform and network to launch my agritech startup that is now feeding 8,000 families in Northern Nigeria."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/64/128/128" class="w-12 h-12 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-medium">Aisha Mohammed</div>
+                            <div class="text-xs text-white/60">Nigeria • AgriTech Founder</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-3xl p-8">
+                    <p class="italic text-lg">"Through AFF I advocated for youth inclusion in my country's climate policy. We made history."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/201/128/128" class="w-12 h-12 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-medium">Kwame Osei</div>
+                            <div class="text-xs text-white/60">Ghana • Climate Advocate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-3xl p-8">
+                    <p class="italic text-lg">"The connections and mentorship I received through AFF changed the trajectory of my career and my impact."</p>
+                    <div class="mt-8 flex items-center gap-4">
+                        <img src="https://picsum.photos/id/238/128/128" class="w-12 h-12 rounded-2xl" alt="">
+                        <div>
+                            <div class="font-medium">Zainab Diallo</div>
+                            <div class="text-xs text-white/60">Senegal • Policy Leader</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Map Section -->
-<section class="py-20 bg-warm-white">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-12 scroll-reveal">
-<span class="inline-block bg-calm-sage/10 text-calm-sage px-4 py-1.5 rounded-full text-sm font-bold mb-4">Find Us</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Our Location</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Visit our headquarters in Kampala or reach out to any of our regional offices.</p>
-</div>
-<div class="grid lg:grid-cols-3 gap-8 scroll-reveal">
-<div class="lg:col-span-2 bg-white rounded-3xl overflow-hidden shadow-soft-lg">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255281.1989180681!2d32.4465!3d0.3136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbc0f1d5f5c5f%3A0x5e5e5e5e5e5e5e5e!2sKampala%2C%20Uganda!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3xl"></iframe>
-</div>
-<div class="space-y-6">
-<div class="bg-white rounded-2xl p-6 shadow-soft">
-<div class="w-12 h-12 bg-gentle-teal/10 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-location-dot text-gentle-teal text-xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Headquarters</h3>
-<p class="text-deep-charcoal/60 text-sm">Plot 45, Bombo Road<br>Kampala, Uganda</p>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft">
-<div class="w-12 h-12 bg-warm-peach/10 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-building text-warm-peach text-xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Regional Offices</h3>
-<p class="text-deep-charcoal/60 text-sm">Jinja, Gulu, Lira, and Mbarara</p>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft">
-<div class="w-12 h-12 bg-calm-sage/10 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-clock text-calm-sage text-xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Office Hours</h3>
-<p class="text-deep-charcoal/60 text-sm">Mon - Fri: 8:00 AM - 5:00 PM<br>Sat: 9:00 AM - 1:00 PM</p>
-</div>
-</div>
-</div>
-</div>
-</section>
+    <!-- FINAL CTA -->
+    <section class="py-32 bg-gradient-to-br from-amber-900/20 via-black to-black border-t border-amber-400/20">
+        <div class="max-w-2xl mx-auto text-center px-8">
+            <h2 class="heading-font text-6xl font-bold tracking-tighter mb-8">Ready to shape Africa's future?</h2>
+            <p class="text-xl text-white/70 mb-12">Join thousands of young leaders across the continent who refuse to wait.</p>
+            
+            <button onclick="joinMovement()" 
+                    class="w-full md:w-auto px-16 py-8 text-2xl font-semibold bg-white text-black rounded-3xl hover:bg-amber-400 transition-all shadow-2xl">
+                BECOME A MEMBER TODAY
+            </button>
+            
+            <div class="mt-10 text-sm opacity-60">Free to join • Open to all Africans aged 18-35</div>
+        </div>
+    </section>
 
-<!-- Emergency Contact Section -->
-<section class="py-20 bg-gradient-to-br from-gentle-teal/5 to-warm-peach/5">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="text-center mb-12 scroll-reveal">
-<span class="inline-block bg-red-100 text-red-500 px-4 py-1.5 rounded-full text-sm font-bold mb-4"><i class="fas fa-exclamation-circle mr-2"></i>Emergency</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Emergency Contact</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">If you know a child in immediate danger or need urgent assistance, please reach out immediately.</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 scroll-reveal">
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center hover:shadow-soft-lg transition-all">
-<div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-phone-volume text-red-400 text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-1">24/7 Hotline</h3>
-<p class="text-2xl font-bold text-red-400 mb-1">+256 772 123 456</p>
-<p class="text-sm text-deep-charcoal/60">Immediate response</p>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center hover:shadow-soft-lg transition-all">
-<div class="w-16 h-16 bg-gentle-teal/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-envelope text-gentle-teal text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-1">Email</h3>
-<p class="text-lg font-bold text-gentle-teal mb-1">emergency@parabolic.org</p>
-<p class="text-sm text-deep-charcoal/60">Response within 1 hour</p>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center hover:shadow-soft-lg transition-all">
-<div class="w-16 h-16 bg-warm-peach/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fab fa-whatsapp text-warm-peach text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-1">WhatsApp</h3>
-<p class="text-lg font-bold text-warm-peach mb-1">+256 772 123 456</p>
-<p class="text-sm text-deep-charcoal/60">Chat support available</p>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center hover:shadow-soft-lg transition-all">
-<div class="w-16 h-16 bg-calm-sage/10 rounded-2xl flex items-center justify-center mx-auto mb-4"><i class="fas fa-shield-halved text-calm-sage text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-1">Child Helpline</h3>
-<p class="text-lg font-bold text-calm-sage mb-1">116</p>
-<p class="text-sm text-deep-charcoal/60">National toll-free</p>
-</div>
-</div>
-<div class="mt-8 bg-red-50 border border-red-100 rounded-2xl p-6 text-center scroll-reveal">
-<p class="text-red-600 font-semibold"><i class="fas fa-triangle-exclamation mr-2"></i>If a child is in immediate physical danger, please call the police at <strong>999</strong> or <strong>112</strong> first, then contact us.</p>
-</div>
-</div>
-</section>
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-white/10 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center text-2xl">🇦🇫</div>
+                    <span class="heading-font text-3xl font-bold tracking-tighter">African Future Forum</span>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <div class="text-white/60 text-sm">© 2026 African Future Forum. All Rights Reserved.</div>
+                    <div class="flex gap-6 text-sm mt-4 justify-center md:justify-end">
+                        <a href="#" class="hover:text-amber-400 transition">Privacy</a>
+                        <a href="#" class="hover:text-amber-400 transition">Transparency</a>
+                        <a href="#" class="hover:text-amber-400 transition">Contact</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-xs text-white/40 mt-16">
+                Shaping Africa's Future, Together.
+            </div>
+        </div>
+    </footer>
 
-<!-- Donation Section -->
-<section id="donate" class="py-20 bg-soft-cream relative overflow-hidden">
-<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gentle-teal/5 to-warm-peach/5"></div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-<div class="text-center mb-16 scroll-reveal">
-<span class="inline-block bg-gentle-teal/10 text-gentle-teal px-4 py-1.5 rounded-full text-sm font-bold mb-4">Support Us</span>
-<h2 class="font-playfair text-4xl md:text-5xl font-bold text-deep-charcoal mb-4">Make a Difference</h2>
-<p class="text-deep-charcoal/60 max-w-2xl mx-auto text-lg">Your contribution directly impacts a child's life. Choose a donation method that works for you.</p>
-</div>
-<div class="max-w-3xl mx-auto mb-12 bg-white rounded-2xl p-6 shadow-soft scroll-reveal">
-<div class="flex justify-between items-center mb-3">
-<span class="font-bold text-deep-charcoal">Annual Fundraising Goal</span>
-<span class="font-bold text-gentle-teal">UGX 450M / UGX 600M</span>
-</div>
-<div class="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
-<div class="bg-gradient-to-r from-gentle-teal to-calm-sage h-4 rounded-full" style="width: 65%"></div>
-</div>
-<p class="text-sm text-deep-charcoal/60 mt-2">65% funded - UGX 150M remaining to reach our goal for 2024</p>
-</div>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-<div class="payment-card bg-white rounded-2xl p-6 shadow-soft scroll-reveal">
-<div class="w-14 h-14 bg-yellow-50 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-mobile-screen text-yellow-500 text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Mobile Money</h3>
-<p class="text-sm text-deep-charcoal/60 mb-4">MTN & Airtel Money accepted</p>
-<div class="space-y-2 text-sm">
-<div class="flex justify-between"><span class="text-deep-charcoal/60">MTN:</span><span class="font-mono font-bold text-deep-charcoal">+256 772 123 456</span></div>
-<div class="flex justify-between"><span class="text-deep-charcoal/60">Airtel:</span><span class="font-mono font-bold text-deep-charcoal">+256 702 123 456</span></div>
-</div>
-<button class="mt-4 w-full bg-yellow-500 text-white py-2 rounded-lg font-semibold hover:bg-yellow-600 transition-colors text-sm">Pay with Mobile Money</button>
-</div>
-<div class="payment-card bg-white rounded-2xl p-6 shadow-soft scroll-reveal" style="transition-delay: 0.1s;">
-<div class="w-14 h-14 bg-gentle-teal/10 rounded-xl flex items-center justify-center mb-4"><i class="fas fa-building-columns text-gentle-teal text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Bank Transfer</h3>
-<p class="text-sm text-deep-charcoal/60 mb-4">Direct bank deposit or transfer</p>
-<div class="space-y-2 text-sm">
-<div class="flex justify-between"><span class="text-deep-charcoal/60">Bank:</span><span class="font-bold text-deep-charcoal">Stanbic Bank</span></div>
-<div class="flex justify-between"><span class="text-deep-charcoal/60">Account:</span><span class="font-mono font-bold text-deep-charcoal">9030001234567</span></div>
-<div class="flex justify-between"><span class="text-deep-charcoal/60">Name:</span><span class="font-bold text-deep-charcoal text-xs">Parabolic Children Fdn</span></div>
-</div>
-<button class="mt-4 w-full bg-gentle-teal text-white py-2 rounded-lg font-semibold hover:bg-deep-teal transition-colors text-sm">View Bank Details</button>
-</div>
-<div class="payment-card bg-white rounded-2xl p-6 shadow-soft scroll-reveal" style="transition-delay: 0.2s;">
-<div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-4"><i class="fab fa-paypal text-blue-500 text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">PayPal / Card</h3>
-<p class="text-sm text-deep-charcoal/60 mb-4">International donations</p>
-<div class="space-y-2 text-sm">
-<div class="flex justify-between"><span class="text-deep-charcoal/60">PayPal:</span><span class="font-bold text-deep-charcoal text-xs">donate@parabolic.org</span></div>
-<div class="flex justify-between"><span class="text-deep-charcoal/60">Cards:</span><span class="font-bold text-deep-charcoal">Visa, Mastercard</span></div>
-</div>
-<button class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-sm">Donate via PayPal</button>
-</div>
-<div class="payment-card bg-white rounded-2xl p-6 shadow-soft scroll-reveal" style="transition-delay: 0.3s;">
-<div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center mb-4"><i class="fab fa-bitcoin text-purple-500 text-2xl"></i></div>
-<h3 class="font-bold text-deep-charcoal mb-2">Cryptocurrency</h3>
-<p class="text-sm text-deep-charcoal/60 mb-4">Bitcoin & Ethereum accepted</p>
-<div class="space-y-2 text-sm">
-<div class="flex justify-between"><span class="text-deep-charcoal/60">BTC:</span><span class="font-mono font-bold text-deep-charcoal text-xs truncate max-w-[100px]">bc1q...xyz</span></div>
-<div class="flex justify-between"><span class="text-deep-charcoal/60">ETH:</span><span class="font-mono font-bold text-deep-charcoal text-xs truncate max-w-[100px]">0x71...abc</span></div>
-</div>
-<button class="mt-4 w-full bg-purple-500 text-white py-2 rounded-lg font-semibold hover:bg-purple-600 transition-colors text-sm">Copy Wallet Address</button>
-</div>
-</div>
-<div class="grid md:grid-cols-3 gap-6 mb-12">
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center scroll-reveal">
-<p class="text-3xl font-bold text-gentle-teal mb-1">UGX 50,000</p>
-<p class="text-sm text-deep-charcoal/60 mb-4">Feeds a child for a month</p>
-<button class="w-full border-2 border-gentle-teal text-gentle-teal py-2 rounded-lg font-semibold hover:bg-gentle-teal hover:text-white transition-colors">Donate This Amount</button>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center scroll-reveal" style="transition-delay: 0.1s;">
-<p class="text-3xl font-bold text-warm-peach mb-1">UGX 150,000</p>
-<p class="text-sm text-deep-charcoal/60 mb-4">School fees for one term</p>
-<button class="w-full border-2 border-warm-peach text-warm-peach py-2 rounded-lg font-semibold hover:bg-warm-peach hover:text-white transition-colors">Donate This Amount</button>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-soft text-center scroll-reveal" style="transition-delay: 0.2s;">
-<p class="text-3xl font-bold text-calm-sage mb-1">UGX 500,000</p>
-<p class="text-sm text-deep-charcoal/60 mb-4">Full sponsorship for a year</p>
-<button class="w-full border-2 border-calm-sage text-calm-sage py-2 rounded-lg font-semibold hover:bg-calm-sage hover:text-white transition-colors">Donate This Amount</button>
-</div>
-</div>
-<div class="bg-white rounded-2xl p-8 shadow-soft max-w-2xl mx-auto scroll-reveal">
-<h3 class="font-playfair text-xl font-bold text-deep-charcoal mb-4 text-center">Custom Donation</h3>
-<div class="flex space-x-4">
-<input type="number" placeholder="Enter amount (UGX)" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-gentle-teal focus:ring-2 focus:ring-gentle-teal/20">
-<button class="bg-gentle-teal text-white px-8 py-3 rounded-xl font-bold hover:bg-deep-teal transition-colors">Donate</button>
-</div>
-<p class="text-xs text-deep-charcoal/50 mt-3 text-center">All donations are tax-deductible. You will receive a receipt via email.</p>
-</div>
-</div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-deep-charcoal text-white py-16">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-<div>
-<div class="flex items-center space-x-3 mb-6">
-<div class="w-10 h-10 bg-gentle-teal rounded-xl flex items-center justify-center">
-<i class="fas fa-hands-holding-child text-white"></i>
-</div>
-<div>
-<h3 class="font-playfair font-bold text-lg">Parabolic</h3>
-<p class="text-xs text-gentle-teal">Children Foundation</p>
-</div>
-</div>
-<p class="text-white/60 text-sm leading-relaxed mb-4">Transforming the lives of vulnerable children in Uganda through education, healthcare, and love since 2015.</p>
-<div class="flex space-x-3">
-<a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-gentle-teal transition-colors"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-gentle-teal transition-colors"><i class="fab fa-twitter"></i></a>
-<a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-gentle-teal transition-colors"><i class="fab fa-instagram"></i></a>
-<a href="#" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-gentle-teal transition-colors"><i class="fab fa-linkedin-in"></i></a>
-</div>
-</div>
-<div>
-<h4 class="font-bold text-lg mb-6">Quick Links</h4>
-<ul class="space-y-3">
-<li><a href="#about" class="text-white/60 hover:text-gentle-teal transition-colors text-sm">About Us</a></li>
-<li><a href="#services" class="text-white/60 hover:text-gentle-teal transition-colors text-sm">Our Services</a></li>
-<li><a href="#team" class="text-white/60 hover:text-gentle-teal transition-colors text-sm">Our Team</a></li>
-<li><a href="#gallery" class="text-white/60 hover:text-gentle-teal transition-colors text-sm">Gallery</a></li>
-<li><a href="#testimonials" class="text-white/60 hover:text-gentle-teal transition-colors text-sm">Testimonials</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-bold text-lg mb-6">Contact Us</h4>
-<ul class="space-y-3">
-<li class="flex items-start space-x-3 text-sm text-white/60"><i class="fas fa-location-dot text-gentle-teal mt-1"></i><span>Plot 45, Bombo Road<br>Kampala, Uganda</span></li>
-<li class="flex items-center space-x-3 text-sm text-white/60"><i class="fas fa-phone text-gentle-teal"></i><span>+256 772 123 456</span></li>
-<li class="flex items-center space-x-3 text-sm text-white/60"><i class="fas fa-envelope text-gentle-teal"></i><span>info@parabolic.org</span></li>
-</ul>
-</div>
-<div>
-<h4 class="font-bold text-lg mb-6">Newsletter</h4>
-<p class="text-white/60 text-sm mb-4">Subscribe to receive updates on our programs and impact stories.</p>
-<div class="flex space-x-2">
-<input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-gentle-teal text-sm">
-<button class="bg-gentle-teal text-white px-4 py-2 rounded-xl font-semibold hover:bg-deep-teal transition-colors"><i class="fas fa-paper-plane"></i></button>
-</div>
-</div>
-</div>
-<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-<p class="text-white/40 text-sm">2026 Parabolic Children Foundation. All rights reserved.</p>
-<div class="flex space-x-6 mt-4 md:mt-0">
-<a href="#" class="text-white/40 hover:text-white text-sm transition-colors">Privacy Policy</a>
-<a href="#" class="text-white/40 hover:text-white text-sm transition-colors">Terms of Service</a>
-<a href="#" class="text-white/40 hover:text-white text-sm transition-colors">Annual Reports</a>
-</div>
-</div>
-</div>
-</footer>
-
-<script>
-// Navbar scroll effect
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    navbar.classList.add('nav-blur', 'shadow-soft');
-  } else {
-    navbar.classList.remove('nav-blur', 'shadow-soft');
-  }
-});
-
-// Mobile menu
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const closeMenu = document.getElementById('close-menu');
-const mobileLinks = document.querySelectorAll('.mobile-link');
-
-mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
-mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
-
-// Scroll reveal
-const scrollReveal = () => {
-  const elements = document.querySelectorAll('.scroll-reveal');
-  elements.forEach(el => {
-    const elementTop = el.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-    if (elementTop < windowHeight - 100) {
-      el.classList.add('active');
-    }
-  });
-};
-window.addEventListener('scroll', scrollReveal);
-window.addEventListener('load', scrollReveal);
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-</script>
+    <script>
+        // Tailwind script already loaded via CDN
+        
+        // Animate counters
+        function animateValue(id, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                document.getElementById(id).innerHTML = value.toLocaleString('en-US');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    document.getElementById(id).innerHTML = end.toLocaleString('en-US');
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Trigger counters when scrolled into view
+        let statsAnimated = false;
+        
+        window.addEventListener('scroll', () => {
+            if (statsAnimated) return;
+            
+            const impactSection = document.getElementById('impact');
+            const rect = impactSection.getBoundingClientRect();
+            
+            if (rect.top <= window.innerHeight * 0.7) {
+                statsAnimated = true;
+                animateValue("stat1", 8000, 12847, 2200);
+                animateValue("stat2", 20, 48, 1800);
+                animateValue("stat3", 100, 237, 2000);
+                animateValue("stat4", 15, 41, 1900);
+                animateValue("stat5", 600000, 1200000, 2500);
+            }
+        });
+        
+        // Simple particle background in hero
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 80; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute w-1 h-1 bg-amber-400 rounded-full opacity-30';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `float ${8 + Math.random() * 12}s linear infinite`;
+                particle.style.animationDelay = `-${Math.random() * 15}s`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Add keyframe for floating
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes float {
+                0% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-120px) scale(0.6); }
+                100% { transform: translateY(-300px) scale(0.2); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Join movement alert (demo)
+        function joinMovement() {
+            const name = prompt("Welcome to AFF! What's your first name?");
+            if (name) {
+                alert(`Thank you, ${name}! 🎉\n\nYou've taken the first step toward shaping Africa's future.\n\nA real membership form would appear here.`);
+            } else {
+                alert("The movement awaits you. Join us today!");
+            }
+        }
+        
+        // Initialize
+        window.onload = function() {
+            createParticles();
+            
+            // Keyboard shortcut hint
+            console.log('%cAfrican Future Forum - Cinematic Demo Ready ✨\nPress J to join the movement', 'color:#f5c462; font-family:monospace');
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key.toLowerCase() === 'j') joinMovement();
+            });
+        };
+    </script>
 </body>
   </html>
